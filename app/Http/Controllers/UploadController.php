@@ -18,24 +18,24 @@ class UploadController extends Controller
   {
     return view('upload.upload');
   }
-    
+
   public function handleUpload(Request $request)
   {
     if ($request->hasFile('image') && $request->file('image')->isValid()) {
-      $uploadedFile = $request->file('image');      
-      $image = Image::make($file);
+      $uploadedFile = $request->file('image');
+      $image = Image::make($uploadedFile);
       $image->fit(600);
       $filename = md5(time() . $uploadedFile->getClientOriginalName()) . '.' . $uploadedFile->getClientOriginalExtension();
       $image->save(public_path('storage/images/' . $filename));
       $savedFile = new File;
       $savedFile->user_id = auth()->id();
-      $savedFile->filename = $uploadeFile->getClientOriginalName();
+      $savedFile->filename = $uploadedFile->getClientOriginalName();
       $savedFile->filepath = 'storage/images/' . $filename;
       $savedFile->filemime = $uploadedFile->getClientOriginalExtension();
       $savedFile->filesize = $uploadedFile->getSize();
       $savedFile->status = 1;
       $savedFile->save();
-            
+
       return redirect()->route('upload-crop', ['id' => $savedFile->id]);
     }
   }
@@ -44,7 +44,7 @@ class UploadController extends Controller
   {
     $file = File::findOrFail($id);
     $scripts = ['js/all.js'];
-    
+
     return view('upload.crop')
       ->with('image', $file)
       ->with('scripts', $scripts);
@@ -58,6 +58,9 @@ class UploadController extends Controller
       $request->input('y') > 0 &&
       $request->input('w') > 0 &&
       $request->input('h') > 0;
+
+    // var_dump($request->all());
+    // die(__FILE__.__LINE__);
 
     if ($doCrop) {
       $image->crop($request->input('w'), $request->input('h'), $request->input('x'), $request->input('y'))

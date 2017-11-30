@@ -16,7 +16,7 @@
           </div>
           <div class="panel-body">
             <div class="js_coords">
-              <form name="thumbnail" action="/upload/save" method="post">
+              <form name="thumbnail" action="/upload/crop" method="post">
                 {{ csrf_field() }}
                 <input type="hidden" name=id value="{{ $image->id }}" />
                 <input type="hidden" name="x" value="" id="x" />
