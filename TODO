@@ -1,0 +1,45 @@
+Validate uploaded file has correct extensions and mimetype
+
+Validate filesize (What does Instagram do?)
+
+What to do about tiny files?
+
+What to do about large files
+
+Image crop functionality
+
+On upload convert image to different sizes
+
+Queue jobs to push to FB, Insta, Twitter Google
+
+Allow for a caption
+
+When iterating thought user's images should I use 'include' in template
+
+Drag and drop an image
+
+Fade in all images using vue js
+
+Delete Images
+
+Multiple images in same upload
+
+Ensure usernames are unique (create unique index and do check on account creation)
+
+Drag and drop image on form.
+
+Make thumbnail bigger
+
+Make a composite class to handle files and images (contain Image and File class)
+
+New homestead environment
+
+Create git repository
+
+Instagram upload
+
+Twitter upload
+
+Facebook upload
+
+Create relationships so that users can follow each other
