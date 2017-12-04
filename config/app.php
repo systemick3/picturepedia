@@ -181,6 +181,7 @@ return [
          * Added by Mike...
          */
         Intervention\Image\ImageServiceProvider::class,
+        SammyK\LaravelFacebookSdk\LaravelFacebookSdkServiceProvider::class,
 
     ],
 

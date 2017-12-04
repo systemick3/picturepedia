@@ -59,9 +59,6 @@ class UploadController extends Controller
       $request->input('w') > 0 &&
       $request->input('h') > 0;
 
-    // var_dump($request->all());
-    // die(__FILE__.__LINE__);
-
     if ($doCrop) {
       $image->crop($request->input('w'), $request->input('h'), $request->input('x'), $request->input('y'))
         ->resize(600, 600);
@@ -81,6 +78,20 @@ class UploadController extends Controller
   }
 
   public function handleShare(Request $request) {
-    return 'Hello World';
+    session()->put('last_upload_id', $request->input('id'));
+    if ($request->input('facebook') === 'Facebook') {
+      //var_dump($request->all());
+      //die(__FILE__);
+      return redirect()->route('facebook-index');
+    }
+    else {
+      var_dump($request->all());
+      return 'Hello World ' . $request->input('facebook');
+    }
+  }
+
+  public function test()
+  {
+    return 'Testing';
   }
 }

@@ -15,6 +15,9 @@ Route::get('/', 'FrontController@index')->name('front');
 
 Auth::routes();
 
+Route::get('/facebook', 'FacebookController@index')->name('facebook-index');
+Route::get('/facebook/callback', 'FacebookController@callback')->name('facebook-callback');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/upload', 'UploadController@upload')->name('upload-upload');
