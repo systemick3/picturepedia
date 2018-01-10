@@ -8,13 +8,20 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    @if (session('status'))
+                    @if (session('status') || session('facebook_status') || session('twitter_status'))
                         <div class="alert alert-success">
-                            {{ session('status') }}
+                            {{ session('status') }}<br/>
+                            {{ session('facebook_status') }}<br/>
+                            {{ session('twitter_status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    @if (session('error') || session('facebook_error') || session('twitter_error'))
+                        <div class="alert alert-error">
+                            {{ session('error') }}<br/>
+                            {{ session('facebook_error') }}<br/>
+                            {{ session('twitter_error') }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

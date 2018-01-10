@@ -11,7 +11,7 @@ class UserTest extends TestCase
 
     const USERNAME_INVALID = 'qerfqefqe';
     const USERNAME_WITH_IMAGES = 'systemick';
-    const USERNAME_WITHOUT_IMAGES = 'user_1';
+    const USERNAME_WITHOUT_IMAGES = 'user_2';
 
     /**
      * Test a profile page for an invalid user returns a 404.
@@ -39,7 +39,7 @@ class UserTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('user.profile');
         $response->assertDontSeeText('Profile for systemick.');
-        $response->assertSeeText('Profile for user_1.');
+        $response->assertSeeText('Profile for user_2.');
         $response->assertSeeText('This user hasn\'t added any images yet.');
     }
 

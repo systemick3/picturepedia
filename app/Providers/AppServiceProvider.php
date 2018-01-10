@@ -23,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+      $this->app->bind('Abraham\TwitterOAuth\TwitterOAuth', function($app)
+      {
+        $consumerKey = config('twitteroauth.CONSUMER_KEY');
+        $consumerSecret = config('twitteroauth.CONSUMER_SECRET');
+        return new \Abraham\TwitterOAuth\TwitterOAuth($consumerKey, $consumerSecret);
+      });
     }
 }

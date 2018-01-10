@@ -7,14 +7,15 @@
       <div class="panel panel-default">
         <div class="panel-heading">Showing image</div>
           <div class="panel-body">
-            <img class="image" src="{{ asset("$image->filepath") }}"/>
+            <img class="image" src="{{ asset("$file->filepath") }}"/>
           </div>
           <div class="panel-body">
             <h3>Share your picture</h3>
             <form name="thumbnail" action="/upload/share" method="post">
               {{ csrf_field() }}
-              <input type="hidden" name=id value="{{ $image->id }}" />
-              <p><input type="checkbox" name="instagram" value="Instagram">Instagram</p>
+              <input type="hidden" name=file_id value="{{ $file->id }}" />
+              <input type="hidden" name=post_id value="{{ $post->id }}" />
+              <textarea name="caption" placeholder="Add a caption" rows="4" cols="50"></textarea>
               <p><input type="checkbox" name="facebook" value="Facebook">Facebook</p>
               <p><input type="checkbox" name="twitter" value="Twitter">Twitter</p>
               <p><input type="submit" class="button" name="upload_thumbnail" value="Share" id="share" /></p>

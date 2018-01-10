@@ -28,7 +28,7 @@ class UploadTest extends TestCase
             $response = $this->actingAs($user)
                 ->get($url);
             $response->assertStatus(200);
-            $response->assertViewIs('images.upload');
+            $response->assertViewIs('upload.upload');
         }
     }
 

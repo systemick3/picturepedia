@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\File;
+use App\Post;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage as Storage;
 
@@ -27,8 +28,14 @@ class UploadController extends Controller
       $image->fit(600);
       $filename = md5(time() . $uploadedFile->getClientOriginalName()) . '.' . $uploadedFile->getClientOriginalExtension();
       $image->save(public_path('storage/images/' . $filename));
+
+      $post = new Post;
+      $post->user_id = auth()->id();
+      $post->caption = '';
+      $post->save();
+
       $savedFile = new File;
-      $savedFile->user_id = auth()->id();
+      $savedFile->post_id = $post->id;
       $savedFile->filename = $uploadedFile->getClientOriginalName();
       $savedFile->filepath = 'storage/images/' . $filename;
       $savedFile->filemime = $uploadedFile->getClientOriginalExtension();
@@ -36,7 +43,7 @@ class UploadController extends Controller
       $savedFile->status = 1;
       $savedFile->save();
 
-      return redirect()->route('upload-crop', ['id' => $savedFile->id]);
+      return redirect()->route('upload.crop', ['id' => $savedFile->id]);
     }
   }
 
@@ -46,7 +53,7 @@ class UploadController extends Controller
     $scripts = ['js/all.js'];
 
     return view('upload.crop')
-      ->with('image', $file)
+      ->with('file', $file)
       ->with('scripts', $scripts);
   }
 
@@ -68,30 +75,48 @@ class UploadController extends Controller
     $file->filepath = 'storage/images/' . $newFilename;
     $file->save();
     $image->save(public_path('storage/images/' . $newFilename));
-    return redirect()->route('upload-share', ['id' => $file->id]);
+    return redirect()->route('upload.share', ['id' => $file->id]);
   }
 
   public function share($id) {
     $file = File::findOrFail($id);
+    $post = Post::findOrFail($file->post_id);
     return view('upload.share')
-        ->with('image', $file);
+      ->with('post', $post)
+      ->with('file', $file);
   }
 
   public function handleShare(Request $request) {
-    session()->put('last_upload_id', $request->input('id'));
+    $lastPost = [
+      'post_id' => $request->input('post_id'),
+      'file_id' => $request->input('file_id'),
+      'caption' => $request->input('caption'),
+      'facebook' => $request->input('facebook') === 'Facebook',
+      'twitter' => $request->input('twitter') === 'Twitter',
+      'messages' => ['The picture has been added to your Picturepedia feed.'],
+      'errors' => [],
+    ];
+
+    session()->put('lastPost', $lastPost);
     if ($request->input('facebook') === 'Facebook') {
-      //var_dump($request->all());
-      //die(__FILE__);
-      return redirect()->route('facebook-index');
+      return redirect()->route('facebook.index');
+    }
+    else if ($request->input('twitter') === 'Twitter') {
+      return redirect()->route('twitter.index');
     }
     else {
-      var_dump($request->all());
-      return 'Hello World ' . $request->input('facebook');
+      return redirect()->route('upload.complete');
     }
   }
 
-  public function test()
-  {
-    return 'Testing';
+  public function complete(Request $request) {
+    $lastPost = session()->get('lastPost');
+    $post = Post::findOrFail($lastPost['post_id']);
+    $post->caption = $lastPost['caption'];
+    $post->save();
+
+    //var_dump($lastPost['messages']);
+    //var_dump($lastPost['errors']);
+    return 'Hello';
   }
 }

@@ -49,3 +49,15 @@ Add caption to uploaded file
 Login with facebook
 
 Login with Twitter
+
+Store Twitter/Facebook tokens to prevent having to login again.
+
+Users must be able to delete a post.
+
+Handle upload of multiple images in one post.
+
+Enusre that only posts/files with a status of 1 are ever selected.
+
+Ability to comment on posts.
+
+Limit number of chars in caption with javascript.

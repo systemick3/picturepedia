@@ -7,52 +7,27 @@ use App\File;
 
 class FacebookController extends Controller
 {
-  public function index(\SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
+  public function index(\SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb, Request $request)
   {
-    var_dump($fb);
-
-    // $fb = new Facebook\Facebook([
-    //   'app_id' => config('laravel-facebook-sdk.app_id'), // Replace {app-id} with your app id
-    //   'app_secret' => config('laravel-facebook-sdk.app_secret'),
-    //   'default_graph_version' => 'v2.2',
-    // ]);
-
     $loginUrl = $fb->getLoginUrl(['publish_actions']);
-    //die($loginUrl);
     return redirect()->to($loginUrl);
-
-    // try {
-    //     $token = $fb
-    //         ->getRedirectLoginHelper()
-    //         ->getAccessToken();
-    // } catch (Facebook\Exceptions\FacebookSDKException $e) {
-    //     // Failed to obtain access token
-    //     dd($e->getMessage());
-    // }
-
-    //$helper = $fb->getRedirectLoginHelper();
-
-    //$permissions = ['email']; // Optional permissions
-    //$loginUrl = $helper->getLoginUrl('https://systemick.co.uk', $permissions);
-
-    return 'Hello Facebook ' . $loginUrl;
   }
 
-  public function callback(\SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
+  public function callback(\SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb, Request $request)
   {
     try {
         $token = $fb
-            ->getRedirectLoginHelper()
-            ->getAccessToken();
+          ->getRedirectLoginHelper()
+          ->getAccessToken();
     } catch (Facebook\Exceptions\FacebookSDKException $e) {
         // Failed to obtain access token
         dd($e->getMessage());
     }
 
-    $file = File::findOrFail(session()->get('last_upload_id'));
-    //die(public_path('storage/images/' . $file->filename));
+    $lastPost = session()->get('lastPost');
+    $file = File::findOrFail($lastPost['file_id']);
     $data = [
-      'message' => 'My awesome photo upload example.',
+      'message' => $lastPost['caption'],
       'source' => $fb->fileToUpload(public_path($file->filepath)),
     ];
 
@@ -68,9 +43,19 @@ class FacebookController extends Controller
     }
 
     $graphNode = $response->getGraphNode();
+    if (!empty($graphNode)) {
+      session()->push('lastPost.messages', 'The picture has been added to your Facebook feed.');
+    }
+    else {
+      session()->push('lastPost.errors', 'There was a problem adding the picture to your Facebook feed.');
+    }
 
-    echo 'Photo ID: ' . $graphNode['id'] . '<br/>';
-
-    return 'Testing 2 ' . session()->get('last_upload_id') . ' ' . $token;
+    $lastPost = session()->get('lastPost');
+    if ($lastPost['twitter']) {
+      return redirect()->route('twitter.index');
+    }
+    else {
+      return redirect()->route('upload.complete');
+    }
   }
 }
