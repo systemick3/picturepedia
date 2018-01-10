@@ -14,9 +14,13 @@ class FrontController extends Controller
   public function index()
   {
     $currentUser = auth()->user();
-    $files = $currentUser->getTimeline();
-    return view('front')
-      ->with('posts', $currentUser->getTimeline())
-      ->with('user', $currentUser);
+    if (!empty($currentUser)) {
+      return view('front')
+        ->with('posts', $currentUser->getTimeline())
+        ->with('user', $currentUser);
+    }
+    else {
+      return view('front');
+    }
   }
 }

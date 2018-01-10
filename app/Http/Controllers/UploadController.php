@@ -115,6 +115,8 @@ class UploadController extends Controller
     $post->caption = $lastPost['caption'] ? $lastPost['caption'] : '';
     $post->save();
 
+    return redirect()->route('front');
+
     //var_dump($lastPost['messages']);
     //var_dump($lastPost['errors']);
     return 'Hello';
