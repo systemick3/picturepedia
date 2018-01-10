@@ -112,7 +112,7 @@ class UploadController extends Controller
   public function complete(Request $request) {
     $lastPost = session()->get('lastPost');
     $post = Post::findOrFail($lastPost['post_id']);
-    $post->caption = $lastPost['caption'];
+    $post->caption = $lastPost['caption'] ? $lastPost['caption'] : '';
     $post->save();
 
     //var_dump($lastPost['messages']);
