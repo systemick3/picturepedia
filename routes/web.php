@@ -31,4 +31,6 @@ Route::get('/upload/share/{id}', 'UploadController@share')->name('upload.share')
 Route::post('/upload/share', 'UploadController@handleShare')->name('upload.handle-share');
 Route::get('upload/complete', 'UploadController@complete')->name('upload.complete');
 
-Route::get('/{username}', 'UserController@index')->name('user.profile');
+Route::get('/{username}', 'UserController@index')->name('user.timeline');
+Route::get('/user/{username}/edit', 'UserController@edit')->name('user.edit')->middleware('auth');
+Route::post('/user/update', 'UserController@update')->name('user.update')->middleware('auth');

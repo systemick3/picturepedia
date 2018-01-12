@@ -65,3 +65,21 @@ Limit number of chars in caption with javascript.
 Continuous scroll on homepage.
 
 Display messages after upload.
+
+Look at messageBag for error messages when uploading.
+
+Make profile pic croppable.
+
+Make profile editable.
+
+Create custom 404 & 403 pages.
+
+All functions to have drop down bracket.
+
+All tabs to be 2 spaces.
+
+// Prevent edit profile from creating duplicate email.
+
+Display error messages when uploading.
+
+Doxygen comments on all functions.
