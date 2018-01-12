@@ -9,9 +9,18 @@
           <div class="panel-body">
             <form method="post" enctype="multipart/form-data">
               {{ csrf_field() }}
-              <input type="file" name="image" />
-              <input type="submit" />
-            </form>    
+              <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                <input type="file" name="image" />
+                @if ($errors->has('image'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('image') }}</strong>
+                  </span>
+                @endif
+              </div>
+              <div class="form-group">
+                <input type="submit" />
+              </div>
+            </form>
           </div>
         </div>
       </div>

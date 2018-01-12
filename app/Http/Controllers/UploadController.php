@@ -22,28 +22,21 @@ class UploadController extends Controller
 
   public function handleUpload(Request $request)
   {
+    $this->validate($request, ['image' => 'required']);
     if ($request->hasFile('image') && $request->file('image')->isValid()) {
       $uploadedFile = $request->file('image');
-      $image = Image::make($uploadedFile);
-      $image->fit(600);
-      $filename = md5(time() . $uploadedFile->getClientOriginalName()) . '.' . $uploadedFile->getClientOriginalExtension();
-      $image->save(public_path('storage/images/' . $filename));
-
       $post = new Post;
       $post->user_id = auth()->id();
       $post->caption = '';
       $post->save();
-
       $savedFile = new File;
       $savedFile->post_id = $post->id;
-      $savedFile->filename = $uploadedFile->getClientOriginalName();
-      $savedFile->filepath = 'storage/images/' . $filename;
-      $savedFile->filemime = $uploadedFile->getClientOriginalExtension();
-      $savedFile->filesize = $uploadedFile->getSize();
-      $savedFile->status = 1;
-      $savedFile->save();
+      $savedFile->handleUploadedFile($uploadedFile);
 
       return redirect()->route('upload.crop', ['id' => $savedFile->id]);
+    }
+    else {
+      abort(404);
     }
   }
 
