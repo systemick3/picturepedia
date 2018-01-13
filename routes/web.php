@@ -34,3 +34,7 @@ Route::get('upload/complete', 'UploadController@complete')->name('upload.complet
 Route::get('/{username}', 'UserController@index')->name('user.timeline');
 Route::get('/user/{username}/edit', 'UserController@edit')->name('user.edit')->middleware('auth');
 Route::post('/user/update', 'UserController@update')->name('user.update')->middleware('auth');
+Route::get('/user/{username}/avatar/edit', 'UserController@avatarEdit')->name('user.avatar.edit')->middleware('auth');
+Route::post('/user/avatar/update', 'UserController@avatarUpdate')->name('user.avatar.update')->middleware('auth');
+Route::get('/user/{username}/avatar/crop', 'UserController@avatarCrop')->name('user.avatar.crop')->middleware('auth');
+Route::post('/user/avatar/handlecrop', 'UserController@handleAvatarCrop')->name('user.avatar.handlecrop')->middleware('auth');

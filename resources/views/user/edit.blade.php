@@ -63,6 +63,16 @@
 
             <div class="form-group">
               <div class="col-md-6 col-md-offset-4">
+                @if (isset($file))
+                  <img src="{{ asset("$file->filepath") }}" />
+                @else
+                  <a href="{{ route('user.avatar.edit', $user->name) }}">Upload an avatar</a>
+                @endif
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-md-6 col-md-offset-4">
                 <button type="submit" class="btn btn-primary">
                   Update
                 </button>

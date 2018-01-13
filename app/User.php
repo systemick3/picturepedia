@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\File;
 
 class User extends Authenticatable
 {
@@ -27,6 +28,12 @@ class User extends Authenticatable
     'password', 'remember_token',
   ];
 
+  /**
+   * Define a many-to-many relationship.
+   * Get all users who follow this user.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+   */
   public function followers()
   {
     return $this->belongsToMany(
@@ -37,6 +44,12 @@ class User extends Authenticatable
     );
   }
 
+  /**
+   * Define a many-to-many relationship.
+   * Get all users that this user follows.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+   */
   public function followees()
   {
     return $this->belongsToMany(
@@ -47,6 +60,23 @@ class User extends Authenticatable
     );
   }
 
+  /**
+   * Define a one-to-one relationship.
+   * Get the avatar for this user.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo.
+   */
+  public function file()
+  {
+    return $this->belongsTo(File::class);
+  }
+
+  /**
+   * Return posts for a user's timeline.
+   * Get all posts for all the users followed by this user.
+   *
+   * @return \Illuminate\Support\Collection.
+   */
   public function getTimeline()
   {
     $ids = [];

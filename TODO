@@ -1,3 +1,9 @@
+Messages not working.
+
+Add first name and last name to user profiles.
+
+Likes & Comments.
+
 Validate uploaded file has correct extensions and mimetype
 
 Validate filesize (What does Instagram do?)
@@ -83,3 +89,19 @@ All tabs to be 2 spaces.
 Display error messages when uploading.
 
 Doxygen comments on all functions.
+
+Refactor user code to check for current user.
+
+Rationalise route/controller/view names.
+
+Different sized images for profile page.
+
+Find default image for avatars.
+
+all.js should be all js - need a separate file for cropping javascript.
+
+Use user id instead of username in all admin URLs.
+
+Edit existing avatar functionality.
+
+Make avatar upload and crop use same views as upload/crop picture.
