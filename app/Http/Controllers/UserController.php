@@ -62,16 +62,8 @@ class UserController extends Controller
    * @param  string  $username
    * @return view
    */
-  public function edit($username) {
+  public function edit($id) {
     $currentUser = auth()->user();
-    if (empty($currentUser)) {
-      abort(404);
-    }
-
-    if ($currentUser->name !== $username) {
-      return new Response('Forbidden', 403);
-    }
-
     $file = NULL;
     if (!empty($currentUser->file)) {
       $file = $currentUser->file;
@@ -89,13 +81,9 @@ class UserController extends Controller
    * @param  Illuminate\Http\Request
    * @return redirect
    */
-  public function update(Request $request)
+  public function update(Request $request, $id)
   {
     $currentUser = auth()->user();
-    if (empty($currentUser)) {
-      abort(404);
-    }
-
     if ($currentUser->name !== $request->input('name')) {
       $constraints['name'] = 'required|string|max:255|unique:users';
     }
@@ -127,7 +115,7 @@ class UserController extends Controller
     $currentUser->save();
     $request->session()->flash('status', 'Update was successful!');
 
-    return redirect()->route('user.edit', ['username' => $currentUser->name]);
+    return redirect()->route('user.edit', ['id' => $currentUser->id]);
   }
 
   /**
@@ -136,12 +124,9 @@ class UserController extends Controller
    * @param  string  $username
    * @return view
    */
-  public function avatarEdit($username)
+  public function avatarEdit($id)
   {
     $currentUser = auth()->user();
-    if ($currentUser->name !== $username) {
-      return new Response('Forbidden', 403);
-    }
 
     return view('user.avatar.edit')
       ->with('user', $currentUser);
@@ -153,7 +138,7 @@ class UserController extends Controller
    * @param  Illuminate\Http\Request
    * @return redirect
    */
-  public function avatarUpdate(Request $request)
+  public function avatarUpdate(Request $request, $id)
   {
     $this->validate($request, ['image' => 'required']);
     if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -165,7 +150,7 @@ class UserController extends Controller
       $currentUser->save();
     }
 
-    return redirect()->route('user.avatar.crop', ['username' => $currentUser->name]);
+    return redirect()->route('user.avatar.crop', ['id' => $currentUser->id]);
   }
 
   /**
@@ -174,17 +159,14 @@ class UserController extends Controller
    * @param  string $username
    * @return view
    */
-  public function avatarCrop($username)
+  public function avatarCrop($id)
   {
     $currentUser = auth()->user();
-    if ($currentUser->name !== $username) {
-      return new Response('Forbidden', 403);
-    }
-
     $scripts = ['js/all.js'];
 
     return view('user.avatar.crop')
       ->with('scripts', $scripts)
+      ->with('user', $currentUser)
       ->with('file', $currentUser->file);
   }
 
@@ -194,9 +176,10 @@ class UserController extends Controller
    * @param  Illuminate\Http\Request
    * @return redirect
    */
-  public function handleAvatarCrop(Request $request)
+  public function handleAvatarCrop(Request $request, $id)
   {
-    $file = File::findOrFail($request->input('id'));
+    $currentUser = auth()->user();
+    $file = File::findOrFail($currentUser->file_id);
     $image = Image::make(public_path($file->filepath));
     $doCrop = $request->input('x') > 0 &&
       $request->input('y') > 0 &&
@@ -212,9 +195,8 @@ class UserController extends Controller
     $file->filepath = 'storage/images/' . $newFilename;
     $file->save();
     $image->save(public_path('storage/images/' . $newFilename));
-    $currentUser = auth()->user();
 
-    return redirect()->route('user.edit', ['username' => $currentUser->name]);
+    return redirect()->route('user.edit', ['id' => $currentUser->id]);
   }
 
 }

@@ -16,9 +16,9 @@
           </div>
           <div class="panel-body">
             <div class="js_coords">
-              <form name="thumbnail" action="{{ route('user.avatar.handlecrop') }}" method="post">
+              <form name="thumbnail" action="{{ route('user.avatar.handlecrop', $user->id) }}" method="post">
                 {{ csrf_field() }}
-                <input type="hidden" name=id value="{{ $file->id }}" />
+                <input type="hidden" name=file_id value="{{ $file->id }}" />
                 <input type="hidden" name="x" value="" id="x" />
             	  <input type="hidden" name="y" value="" id="y" />
                 <input type="hidden" name="x2" value="" id="x2" />

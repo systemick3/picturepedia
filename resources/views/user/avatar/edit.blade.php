@@ -7,7 +7,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">Upload an avatar</div>
           <div class="panel-body">
-            <form method="post" enctype="multipart/form-data" action="{{ route('user.avatar.update') }}">
+            <form method="post" enctype="multipart/form-data" action="{{ route('user.avatar.update', $user->id) }}">
               {{ csrf_field() }}
               <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                 <input type="file" name="image" />

@@ -8,7 +8,7 @@
         <div class="panel-heading">Edit profile for </div>
 
         <div class="panel-body">
-          <form class="form-horizontal" method="POST" action="{{ route('user.update') }}">
+          <form class="form-horizontal" method="POST" action="{{ route('user.update', $user->id) }}">
             {{ csrf_field() }}
 
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -65,8 +65,9 @@
               <div class="col-md-6 col-md-offset-4">
                 @if (isset($file))
                   <img src="{{ asset("$file->filepath") }}" />
+                  <a href="{{ route('user.avatar.edit', $user->id) }}">Change this avatar</a>
                 @else
-                  <a href="{{ route('user.avatar.edit', $user->name) }}">Upload an avatar</a>
+                  <a href="{{ route('user.avatar.edit', $user->id) }}">Upload an avatar</a>
                 @endif
               </div>
             </div>

@@ -32,9 +32,12 @@ Route::post('/upload/share', 'UploadController@handleShare')->name('upload.handl
 Route::get('upload/complete', 'UploadController@complete')->name('upload.complete');
 
 Route::get('/{username}', 'UserController@index')->name('user.timeline');
-Route::get('/user/{username}/edit', 'UserController@edit')->name('user.edit')->middleware('auth');
-Route::post('/user/update', 'UserController@update')->name('user.update')->middleware('auth');
-Route::get('/user/{username}/avatar/edit', 'UserController@avatarEdit')->name('user.avatar.edit')->middleware('auth');
-Route::post('/user/avatar/update', 'UserController@avatarUpdate')->name('user.avatar.update')->middleware('auth');
-Route::get('/user/{username}/avatar/crop', 'UserController@avatarCrop')->name('user.avatar.crop')->middleware('auth');
-Route::post('/user/avatar/handlecrop', 'UserController@handleAvatarCrop')->name('user.avatar.handlecrop')->middleware('auth');
+
+Route::middleware(['auth', 'checkuserisowner'])->group(function () {
+  Route::get('/user/{id}/edit', 'UserController@edit')->name('user.edit');
+  Route::post('/user/{id}/update', 'UserController@update')->name('user.update');
+  Route::get('/user/{id}/avatar/edit', 'UserController@avatarEdit')->name('user.avatar.edit');
+  Route::post('/user/{id}/avatar/update', 'UserController@avatarUpdate')->name('user.avatar.update');
+  Route::get('/user/{id}/avatar/crop', 'UserController@avatarCrop')->name('user.avatar.crop');
+  Route::post('/user/{id}/avatar/handlecrop', 'UserController@handleAvatarCrop')->name('user.avatar.handlecrop');
+});
