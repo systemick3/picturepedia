@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\File;
+use App\Follows;
 
 class User extends Authenticatable
 {
@@ -72,6 +73,38 @@ class User extends Authenticatable
   }
 
   /**
+   * Define a one-to-many relationship.
+   * Get the posts for this user.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany.
+   */
+  public function posts()
+  {
+    return $this->hasMany(Post::class);
+  }
+
+  /**
+   * Get the user's full name.
+   *
+   * @return string
+  */
+  public function getFullNameAttribute()
+  {
+    $fullName = '';
+    if ($this->first_name == '') {
+      return $this->last_name;
+    }
+    else {
+      if ($this->last_name == '') {
+        return $this->first_name;
+      }
+      else {
+        return $this->first_name . ' ' . $this->last_name;
+      }
+    }
+  }
+
+  /**
    * Return posts for a user's timeline.
    * Get all posts for all the users followed by this user.
    *
@@ -89,6 +122,51 @@ class User extends Authenticatable
       ->get();
 
     return $posts;
+  }
+
+  /**
+   * Return number of users this user follows.
+   *
+   * @return int.
+   */
+  public function getFolloweesCount()
+  {
+    return count($this->followees);
+  }
+
+  /**
+   * Return number of users this user follows.
+   *
+   * @return int.
+   */
+  public function getFollowersCount()
+  {
+    return count($this->followers);
+  }
+
+  /**
+   * Return number of posts for this user.
+   *
+   * @return int.
+   */
+  public function getPostsCount()
+  {
+    return count($this->posts);
+  }
+
+  /**
+   * Return number of users this user follows.
+   *
+   * @return int.
+   */
+  public function getAvatar()
+  {
+    if (!empty($this->file)) {
+      return $this->file;
+    }
+    else {
+      return File::getDefaultAvatar();
+    }
   }
 
 }

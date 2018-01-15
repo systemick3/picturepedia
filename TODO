@@ -1,3 +1,36 @@
+// Image crop functionality
+
+// Fade in all images using vue js
+
+// Allow for a caption
+
+// Create git repository
+
+// Instagram upload (NOT POSSIBLE)
+
+// Twitter upload
+
+// Facebook upload
+
+// Create relationships so that users can follow each other
+
+// Make profile pic croppable.
+
+// Make profile editable.
+
+// Prevent edit profile from creating duplicate email.
+
+// Refactor user code to check for current user.
+
+// Use user id instead of username in all admin URLs.
+
+// Edit existing avatar functionality.
+
+Create follow button.
+Create Edit Profile button.
+
+Linkedin upload??
+
 Messages not working.
 
 Add first name and last name to user profiles.
@@ -6,27 +39,21 @@ Likes & Comments.
 
 Public & private profiles.
 
+Search functionality.
+
+Hashtags
+
 Validate uploaded file has correct extensions and mimetype
 
 Validate filesize (What does Instagram do?)
-
 What to do about tiny files?
-
 What to do about large files
-
-Image crop functionality
 
 On upload convert image to different sizes
 
 Queue jobs to push to FB, Insta, Twitter Google
 
-Allow for a caption
-
 When iterating thought user's images should I use 'include' in template
-
-Drag and drop an image
-
-Fade in all images using vue js
 
 Delete Images
 
@@ -41,18 +68,6 @@ Make thumbnail bigger
 Make a composite class to handle files and images (contain Image and File class)
 
 New homestead environment
-
-Create git repository
-
-Instagram upload
-
-Twitter upload
-
-Facebook upload
-
-Create relationships so that users can follow each other
-
-Add caption to uploaded file
 
 Login with facebook
 
@@ -76,23 +91,15 @@ Display messages after upload.
 
 Look at messageBag for error messages when uploading.
 
-Make profile pic croppable.
-
-Make profile editable.
-
 Create custom 404 & 403 pages.
 
+Reformat code:
 All functions to have drop down bracket.
-
 All tabs to be 2 spaces.
-
-// Prevent edit profile from creating duplicate email.
 
 Display error messages when uploading.
 
 Doxygen comments on all functions.
-
-Refactor user code to check for current user.
 
 Rationalise route/controller/view names.
 
@@ -101,9 +108,5 @@ Different sized images for profile page.
 Find default image for avatars.
 
 all.js should be all js - need a separate file for cropping javascript.
-
-Use user id instead of username in all admin URLs.
-
-Edit existing avatar functionality.
 
 Make avatar upload and crop use same views as upload/crop picture.

@@ -17,7 +17,7 @@ class UserController extends Controller
   | User Controller
   |--------------------------------------------------------------------------
   |
-  | This controller handles dispplaying a user profile and editing a user
+  | This controller handles displaying a user profile and editing a user
   | account.
   |
   */
@@ -27,7 +27,8 @@ class UserController extends Controller
    *
    * @return void
    */
-  public function __construct(){
+  public function __construct()
+  {
 
   }
 
@@ -51,8 +52,10 @@ class UserController extends Controller
       ->orderBy('id', 'desc')
       ->get();
 
+    $file = $account->getAvatar();
     return view('user.profile')
       ->with('account', $account)
+      ->with('file', $file)
       ->with('posts', $posts);
   }
 
@@ -62,14 +65,10 @@ class UserController extends Controller
    * @param  string  $username
    * @return view
    */
-  public function edit($id) {
+  public function edit($id)
+  {
     $currentUser = auth()->user();
-    $file = NULL;
-    if (!empty($currentUser->file)) {
-      $file = $currentUser->file;
-      $image = Image::make(public_path($file->filepath));
-    }
-
+    $file = $currentUser->getAvatar();
     return view('user.edit')
       ->with('file', $file)
       ->with('user', $currentUser);

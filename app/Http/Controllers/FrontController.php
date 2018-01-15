@@ -7,16 +7,32 @@ use App\Post;
 
 class FrontController extends Controller
 {
+  /*
+  |--------------------------------------------------------------------------
+  | Front Controller
+  |--------------------------------------------------------------------------
+  |
+  | This controller handles display of user's timeline on homepage.
+  |
+  */
+
   public function __construct(){
-    //$this->middleware('auth');
+
   }
 
+  /**
+   * Display a user's timeline.
+   *
+   * @return view
+   */
   public function index()
   {
     $currentUser = auth()->user();
+    $avatar = $currentUser->getAvatar();
     if (!empty($currentUser)) {
       return view('front')
         ->with('posts', $currentUser->getTimeline())
+        ->with('avatar', $avatar)
         ->with('user', $currentUser);
     }
     else {

@@ -10,16 +10,40 @@ use Illuminate\Support\Facades\Storage as Storage;
 
 class UploadController extends Controller
 {
+  /*
+  |--------------------------------------------------------------------------
+  | Upload Controller
+  |--------------------------------------------------------------------------
+  |
+  | This controller handles user uploads.
+  |
+  */
+
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
   public function __construct()
   {
     $this->middleware('auth');
   }
 
+  /**
+   * Display the upload form.
+   *
+   */
   public function upload()
   {
     return view('upload.upload');
   }
 
+  /**
+   * Handle the form upload.
+   *
+   * @param  Illuminate\Http\Request  $request
+   * @return redirect
+   */
   public function handleUpload(Request $request)
   {
     $this->validate($request, ['image' => 'required']);
@@ -32,7 +56,6 @@ class UploadController extends Controller
       $savedFile = new File;
       $savedFile->post_id = $post->id;
       $savedFile->handleUploadedFile($uploadedFile);
-
       return redirect()->route('upload.crop', ['id' => $savedFile->id]);
     }
     else {
@@ -40,16 +63,27 @@ class UploadController extends Controller
     }
   }
 
+  /**
+   * Display uploaded image to enable a crop.
+   *
+   * @param  integer  $id
+   * @return view
+   */
   public function crop($id)
   {
     $file = File::findOrFail($id);
     $scripts = ['js/all.js'];
-
     return view('upload.crop')
       ->with('file', $file)
       ->with('scripts', $scripts);
   }
 
+  /**
+   * Handle the form posted when a crop is done.
+   *
+   * @param  Illuminate\Http\Request  $request
+   * @return redirect
+   */
   public function handleCrop(Request $request)
   {
     $file = File::findOrFail($request->input('id'));
@@ -71,7 +105,14 @@ class UploadController extends Controller
     return redirect()->route('upload.share', ['id' => $file->id]);
   }
 
-  public function share($id) {
+  /**
+   * Display form to enable a post to be shared.
+   *
+   * @param  integer  $id
+   * @return view
+   */
+  public function share($id)
+  {
     $file = File::findOrFail($id);
     $post = Post::findOrFail($file->post_id);
     return view('upload.share')
@@ -79,7 +120,14 @@ class UploadController extends Controller
       ->with('file', $file);
   }
 
-  public function handleShare(Request $request) {
+  /**
+   * Handle the form posted when post is shared.
+   *
+   * @param  Illuminate\Http\Request  $request
+   * @return redirect
+   */
+  public function handleShare(Request $request)
+  {
     $lastPost = [
       'post_id' => $request->input('post_id'),
       'file_id' => $request->input('file_id'),
@@ -102,16 +150,18 @@ class UploadController extends Controller
     }
   }
 
-  public function complete(Request $request) {
+  /**
+   * Handle the form posted when a post is completed.
+   *
+   * @param  Illuminate\Http\Request  $request
+   * @return redirect
+   */
+  public function complete(Request $request)
+  {
     $lastPost = session()->get('lastPost');
     $post = Post::findOrFail($lastPost['post_id']);
     $post->caption = $lastPost['caption'] ? $lastPost['caption'] : '';
     $post->save();
-
     return redirect()->route('front');
-
-    //var_dump($lastPost['messages']);
-    //var_dump($lastPost['errors']);
-    return 'Hello';
   }
 }
