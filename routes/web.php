@@ -17,11 +17,10 @@ Auth::routes();
 
 Route::get('/facebook', 'FacebookController@index')->name('facebook.index');
 Route::get('/facebook/callback', 'FacebookController@callback')->name('facebook.callback');
-
 Route::get('/twitter', 'TwitterController@index')->name('twitter.index');
 Route::get('/twitter/callback', 'TwitterController@callback')->name('twitter.callback');
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/upload', 'UploadController@upload')->name('upload.upload');
 Route::post('/upload', 'UploadController@handleUpload')->name('upload.handle-upload');
@@ -32,6 +31,7 @@ Route::post('/upload/share', 'UploadController@handleShare')->name('upload.handl
 Route::get('upload/complete', 'UploadController@complete')->name('upload.complete');
 
 Route::get('/{username}', 'UserController@index')->name('user.timeline');
+Route::get('/hashtag/{hashtag}', 'HashtagController@index')->name('hashtag.index');
 
 Route::middleware(['auth', 'checkuserisowner'])->group(function () {
   Route::get('/user/{id}/edit', 'UserController@edit')->name('user.edit');

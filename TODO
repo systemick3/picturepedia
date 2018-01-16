@@ -26,6 +26,12 @@
 
 // Edit existing avatar functionality.
 
+Add description to user.
+
+Different sized images on profile and hashtag pages.
+
+Emails when joining.
+
 Create follow button.
 Create Edit Profile button.
 
@@ -42,6 +48,8 @@ Public & private profiles.
 Search functionality.
 
 Hashtags
+
+Hashtag suggestions when typing.
 
 Validate uploaded file has correct extensions and mimetype
 
@@ -96,10 +104,9 @@ Create custom 404 & 403 pages.
 Reformat code:
 All functions to have drop down bracket.
 All tabs to be 2 spaces.
+Doxygen comments on all functions.
 
 Display error messages when uploading.
-
-Doxygen comments on all functions.
 
 Rationalise route/controller/view names.
 

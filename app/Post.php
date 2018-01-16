@@ -19,4 +19,21 @@ class Post extends Model
   {
     return $this->hasMany(File::class);
   }
+
+  /**
+   * Format the hashtags and names in a caption.
+   *
+   * @return string
+  */
+  public function getFormattedCaptionAttribute()
+  {
+    preg_match_all("/(#\w+)/", $this->caption, $matches);
+    $formattedCaption = strip_tags($this->caption);
+    foreach ($matches[0] as $match) {
+      $link = '<a href="' . route('hashtag.index', ['hashtag' => substr($match, 1)]) . '">' . $match . '</a>';
+      $formattedCaption = str_replace($match, $link, $formattedCaption);
+    }
+
+    return $formattedCaption;
+  }
 }

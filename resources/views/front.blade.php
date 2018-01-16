@@ -24,7 +24,7 @@
                       <transition appear name="image">
                         <img class="image" src="{{ asset("$file->filepath") }}">
                       </transition>
-                      <div class="caption">{{ $post->caption }}</div>
+                      <div class="caption">{!! $post->formatted_caption !!}</div>
                     @endforeach
                   </div>
                 @endforeach
