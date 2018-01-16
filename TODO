@@ -26,7 +26,11 @@
 
 // Edit existing avatar functionality.
 
-Add description to user.
+// Add description to user.
+
+// Hashtags
+
+On upload convert image to different sizes
 
 Different sized images on profile and hashtag pages.
 
@@ -47,17 +51,13 @@ Public & private profiles.
 
 Search functionality.
 
-Hashtags
-
-Hashtag suggestions when typing.
+Hashtag suggestions when typing in caption or search.
 
 Validate uploaded file has correct extensions and mimetype
 
 Validate filesize (What does Instagram do?)
 What to do about tiny files?
 What to do about large files
-
-On upload convert image to different sizes
 
 Queue jobs to push to FB, Insta, Twitter Google
 
