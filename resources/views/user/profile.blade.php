@@ -12,6 +12,7 @@
           <div><span>Followers:</span> {{ $account->getFollowersCount() }}</div>
           <div><span>Following:</span> {{ $account->getFolloweesCount() }}</div>
           <div>{{ $account->full_name }}</div>
+          <div>{{ $account->description }}</div>
         </div>
       </div>
       <div class="panel panel-default">
@@ -31,7 +32,6 @@
                 </div>
               @endforeach
             @endif
-            User content goes here.
           </div>
         </div>
       </div>
