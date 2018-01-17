@@ -72,7 +72,7 @@ class UploadController extends Controller
   public function crop($id)
   {
     $file = File::findOrFail($id);
-    $scripts = ['js/all.js'];
+    $scripts = ['js/crop.js'];
     return view('upload.crop')
       ->with('file', $file)
       ->with('scripts', $scripts);

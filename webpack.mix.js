@@ -13,9 +13,9 @@ let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
   .scripts([
-    'public/js/jquery.color.js',
-    'public/js/jquery.Jcrop.js',
-    'public/js/crop.js'
-    ], 'public/js/all.js')
+    'resources/assets/js/jquery.color.js',
+    'resources/assets/js/jquery.Jcrop.js',
+    'resources/assets/js/crop.js'
+  ], 'public/js/crop.js')
   .version()
    .sass('resources/assets/sass/app.scss', 'public/css');

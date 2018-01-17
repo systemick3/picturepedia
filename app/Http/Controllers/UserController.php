@@ -125,7 +125,6 @@ class UserController extends Controller
   public function avatarEdit($id)
   {
     $currentUser = auth()->user();
-
     return view('user.avatar.edit')
       ->with('user', $currentUser);
   }
@@ -160,7 +159,7 @@ class UserController extends Controller
   public function avatarCrop($id)
   {
     $currentUser = auth()->user();
-    $scripts = ['js/all.js'];
+    $scripts = ['js/crop.js'];
 
     return view('user.avatar.crop')
       ->with('scripts', $scripts)
