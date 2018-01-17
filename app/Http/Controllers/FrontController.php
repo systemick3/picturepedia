@@ -28,8 +28,8 @@ class FrontController extends Controller
   public function index()
   {
     $currentUser = auth()->user();
-    $avatar = $currentUser->getAvatar();
     if (!empty($currentUser)) {
+      $avatar = $currentUser->getAvatar();
       return view('front')
         ->with('posts', $currentUser->getTimeline())
         ->with('avatar', $avatar)
