@@ -33,6 +33,9 @@ Route::get('upload/complete', 'UploadController@complete')->name('upload.complet
 Route::get('/{username}', 'UserController@index')->name('user.timeline');
 Route::get('/hashtag/{hashtag}', 'HashtagController@index')->name('hashtag.index');
 
+Route::get('/like/{post_id}', 'LikeController@like')->name('like.like');
+Route::get('/like/{id}/unlike', 'LikeController@unlike')->name('like.unlike');
+
 Route::middleware(['auth', 'checkuserisowner'])->group(function () {
   Route::get('/user/{id}/edit', 'UserController@edit')->name('user.edit');
   Route::post('/user/{id}/update', 'UserController@update')->name('user.update');

@@ -21,6 +21,17 @@ class Post extends Model
   }
 
   /**
+   * Define a one-to-many relationship.
+   * Get the likes for this post.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany.
+   */
+  public function likes()
+  {
+    return $this->hasMany(Like::class);
+  }
+
+  /**
    * Format the hashtags and names in a caption.
    *
    * @return string
@@ -35,5 +46,24 @@ class Post extends Model
     }
 
     return $formattedCaption;
+  }
+
+  /**
+   * Format the hashtags and names in a caption.
+   *
+   * @return string
+  */
+  public function isLikedByCurrentUser()
+  {
+    $currentUser = auth()->user();
+    if (isset($currentUser)) {
+      $likes = $currentUser->likes;
+      foreach ($likes as $like) {
+        if ($like->post_id == $this->id) {
+          return $like->id;
+        }
+      }
+    }
+    return FALSE;
   }
 }

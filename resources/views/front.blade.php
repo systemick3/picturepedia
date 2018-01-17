@@ -28,8 +28,15 @@
                       <transition appear name="image">
                         <img class="image" src="{{ asset("$file->filepath") }}">
                       </transition>
-                      <div class="caption">{!! $post->formatted_caption !!}</div>
                     @endforeach
+                  </div>
+                  <div class="caption">{!! $post->formatted_caption !!}</div>
+                  <div class="like">
+                    @if ($post->isLikedByCurrentUser())
+                      <a href="{{ route('like.unlike', $post->isLikedByCurrentUser()) }}">Unlike</a>
+                    @else
+                      <a href="{{ route('like.like', $post->id) }}">Like</a>
+                    @endif
                   </div>
                 @endforeach
               @endif

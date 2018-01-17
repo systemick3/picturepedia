@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\File;
 use App\Follows;
+use App\Like;
 
 class User extends Authenticatable
 {
@@ -81,6 +82,17 @@ class User extends Authenticatable
   public function posts()
   {
     return $this->hasMany(Post::class);
+  }
+
+  /**
+   * Define a one-to-many relationship.
+   * Get the posts for this user.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany.
+   */
+  public function likes()
+  {
+    return $this->hasMany(Like::class);
   }
 
   /**
