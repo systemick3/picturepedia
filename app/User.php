@@ -96,6 +96,17 @@ class User extends Authenticatable
   }
 
   /**
+   * Define a one-to-many relationship.
+   * Get the comments for this user.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany.
+   */
+  public function comments()
+  {
+    return $this->hasMany(Comment::class);
+  }
+
+  /**
    * Get the user's full name.
    *
    * @return string

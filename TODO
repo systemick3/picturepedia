@@ -30,6 +30,22 @@
 
 // Hashtags
 
+// Add first name and last name to user profiles.
+
+// all.js should be all js - need a separate file for cropping javascript.
+
+// Like functionality
+
+// Basic Comment functionality.
+
+Deletion of comments.
+
+Enforce limit of 255 chars on posts and comments.
+
+Add a page/lightbox for upload guidelines (Google 'Instagram max size').
+
+Add time of post eg 5 hours ago.
+
 On upload convert image to different sizes
 
 Different sized images on profile and hashtag pages.
@@ -42,8 +58,6 @@ Create Edit Profile button.
 Linkedin upload??
 
 Messages not working.
-
-Add first name and last name to user profiles.
 
 Likes & Comments.
 
@@ -113,7 +127,5 @@ Rationalise route/controller/view names.
 Different sized images for profile page.
 
 Find default image for avatars.
-
-all.js should be all js - need a separate file for cropping javascript.
 
 Make avatar upload and crop use same views as upload/crop picture.

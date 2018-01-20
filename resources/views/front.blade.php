@@ -23,6 +23,9 @@
                 <p>This timeline is empty.</p>
               @else
                 @foreach ($posts as $post)
+                  <div class="user">
+                    Posted by {{ $post->user->name }}
+                  </div>
                   <div>
                     @foreach ($post->files as $file)
                       <transition appear name="image">
@@ -38,6 +41,8 @@
                       <a href="{{ route('like.like', $post->id) }}">Like</a>
                     @endif
                   </div>
+                  @include('partials/comment/comments')
+                  @include('partials/comment/comment-form')
                 @endforeach
               @endif
             @else

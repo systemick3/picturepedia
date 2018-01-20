@@ -78,12 +78,16 @@
                 <div class="panel-body">
                   @if (session('status'))
                     <div class="alert alert-success">
-                      {{ session('status') }}
+                      @foreach (session('status') as $status)
+                        <p>{{ $status }}</p>
+                      @endforeach
                     </div>
                   @endif
                   @if (session('error'))
                     <div class="alert alert-danger">
-                      {{ session('error') }}
+                      @foreach (session('error') as $error)
+                        {{ $error }}
+                      @endforeach
                     </div>
                   @endif
                 </div>

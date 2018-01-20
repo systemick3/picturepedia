@@ -30,6 +30,8 @@
                     <div class="caption">{!! $post->formatted_caption !!}</div>
                   @endforeach
                 </div>
+                @include('partials/comment/comments')
+                @include('partials/comment/comment-form')
               @endforeach
             @endif
           </div>

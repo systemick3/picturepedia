@@ -21,6 +21,17 @@ class Post extends Model
   }
 
   /**
+   * Define a many-to-one relationship.
+   * Get the user for this post.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo.
+  */
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
+
+  /**
    * Define a one-to-many relationship.
    * Get the likes for this post.
    *
@@ -29,6 +40,17 @@ class Post extends Model
   public function likes()
   {
     return $this->hasMany(Like::class);
+  }
+
+  /**
+   * Define a one-to-many relationship.
+   * Get the comments for this post.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany.
+   */
+  public function comments()
+  {
+    return $this->hasMany(Comment::class);
   }
 
   /**

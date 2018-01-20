@@ -36,6 +36,8 @@ Route::get('/hashtag/{hashtag}', 'HashtagController@index')->name('hashtag.index
 Route::get('/like/{post_id}', 'LikeController@like')->name('like.like');
 Route::get('/like/{id}/unlike', 'LikeController@unlike')->name('like.unlike');
 
+Route::post('/comments', 'CommentController@store')->name('comment.store');
+
 Route::middleware(['auth', 'checkuserisowner'])->group(function () {
   Route::get('/user/{id}/edit', 'UserController@edit')->name('user.edit');
   Route::post('/user/{id}/update', 'UserController@update')->name('user.update');
