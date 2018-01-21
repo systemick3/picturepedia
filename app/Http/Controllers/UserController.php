@@ -112,7 +112,7 @@ class UserController extends Controller
     }
 
     $currentUser->save();
-    $request->session()->flash('status', 'Your profile was succesfully updated.');
+    $request->session()->flash('status', ['Your profile was succesfully updated.']);
     return redirect()->route('user.edit', ['id' => $currentUser->id]);
   }
 
