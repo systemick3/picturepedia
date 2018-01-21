@@ -135,7 +135,7 @@ class User extends Authenticatable
    */
   public function getTimeline()
   {
-    $ids = [];
+    $ids = [$this->id];
     foreach ($this->followees as $followee) {
       $ids[] = $followee->id;
     }
