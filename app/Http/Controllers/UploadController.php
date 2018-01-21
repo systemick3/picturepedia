@@ -134,8 +134,8 @@ class UploadController extends Controller
       'caption' => $request->input('caption'),
       'facebook' => $request->input('facebook') === 'Facebook',
       'twitter' => $request->input('twitter') === 'Twitter',
-      'messages' => ['The picture has been added to your Picturepedia feed.'],
-      'errors' => [],
+      'status' => [],
+      'error' => [],
     ];
 
     session()->put('lastPost', $lastPost);
@@ -162,6 +162,12 @@ class UploadController extends Controller
     $post = Post::findOrFail($lastPost['post_id']);
     $post->caption = $lastPost['caption'] ? $lastPost['caption'] : '';
     $post->save();
+    session()->push('lastPost.status', 'The picture has been added to your Picturepedia feed.');
+    $status = $request->session()->get('lastPost.status');
+    $error = $request->session()->get('lastPost.error');
+    $request->session()->flash('status', $status);
+    $request->session()->flash('error', $error);
+    $request->session()->forget('lastPost');
     return redirect()->route('front');
   }
 }

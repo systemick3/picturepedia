@@ -44,10 +44,10 @@ class FacebookController extends Controller
 
     $graphNode = $response->getGraphNode();
     if (!empty($graphNode)) {
-      session()->push('lastPost.messages', 'The picture has been added to your Facebook feed.');
+      session()->push('lastPost.status', 'The picture has been added to your Facebook feed.');
     }
     else {
-      session()->push('lastPost.errors', 'There was a problem adding the picture to your Facebook feed.');
+      session()->push('lastPost.error', 'There was a problem adding the picture to your Facebook feed.');
     }
 
     $lastPost = session()->get('lastPost');

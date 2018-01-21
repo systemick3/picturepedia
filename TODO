@@ -38,6 +38,14 @@
 
 // Basic Comment functionality.
 
+// Display multiple messages after upload.
+
+// Look at messageBag for error messages when uploading. (NOT SUITABLE).
+
+Add user's own pictures to timeline.
+
+Add items to main menu.
+
 Deletion of comments.
 
 Enforce limit of 255 chars on posts and comments.
@@ -75,7 +83,7 @@ What to do about large files
 
 Queue jobs to push to FB, Insta, Twitter Google
 
-When iterating thought user's images should I use 'include' in template
+When iterating thought user's images should I use 'include' in template?
 
 Delete Images
 
@@ -89,11 +97,11 @@ Make thumbnail bigger
 
 Make a composite class to handle files and images (contain Image and File class)
 
-New homestead environment
+New homestead environment.
 
-Login with facebook
+Login with facebook.
 
-Login with Twitter
+Login with Twitter.
 
 Store Twitter/Facebook tokens to prevent having to login again.
 
@@ -108,10 +116,6 @@ Ability to comment on posts.
 Limit number of chars in caption with javascript.
 
 Continuous scroll on homepage.
-
-Display messages after upload.
-
-Look at messageBag for error messages when uploading.
 
 Create custom 404 & 403 pages.
 
