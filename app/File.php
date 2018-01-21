@@ -30,9 +30,8 @@ class File extends Model
    * @param  \Illuminate\Http\UploadedFile $uploadedFile
    * @return void
   */
-  public function handleUploadedFile($uploadedFile)
+  public function handleUploadedFile($uploadedFile, $image)
   {
-    $image = Image::make($uploadedFile);
     $image->fit(600);
     $filename = md5(time() . $uploadedFile->getClientOriginalName()) . '.' . $uploadedFile->getClientOriginalExtension();
     $image->save(public_path('storage/images/' . $filename));

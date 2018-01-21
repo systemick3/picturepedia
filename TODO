@@ -44,6 +44,11 @@
 
 // Add user's own pictures to timeline.
 
+// Validate uploaded file has correct extensions and mimetype and size.
+// Validate filesize (What does Instagram do?)
+// What to do about tiny files?
+// What to do about large files
+
 Add items to main menu.
 
 Deletion of comments.
@@ -74,12 +79,6 @@ Public & private profiles.
 Search functionality.
 
 Hashtag suggestions when typing in caption or search.
-
-Validate uploaded file has correct extensions and mimetype
-
-Validate filesize (What does Instagram do?)
-What to do about tiny files?
-What to do about large files
 
 Queue jobs to push to FB, Insta, Twitter Google
 

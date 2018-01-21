@@ -7,6 +7,7 @@ use App\File;
 use App\Post;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage as Storage;
+use Illuminate\Support\Messagebag;
 
 class UploadController extends Controller
 {
@@ -18,6 +19,9 @@ class UploadController extends Controller
   | This controller handles user uploads.
   |
   */
+
+  const UPLOAD_MAX_SIZE = 2046;
+  const UPLOAD_MIN_SIZE = 600;
 
   /**
    * Create a new controller instance.
@@ -46,16 +50,30 @@ class UploadController extends Controller
    */
   public function handleUpload(Request $request)
   {
-    $this->validate($request, ['image' => 'required']);
+    $this->validate($request, ['image' => 'required|image']);
     if ($request->hasFile('image') && $request->file('image')->isValid()) {
       $uploadedFile = $request->file('image');
+      $image = Image::make($uploadedFile);
+
+      if ($image->width() > UploadController::UPLOAD_MAX_SIZE || $image->height() > UploadController::UPLOAD_MAX_SIZE) {
+        $messages = ['errors' => ['Maximum height and width (' . UploadController::UPLOAD_MAX_SIZE . ' pixels) exceeded. Please upload a smaller image.']];
+        $messageBag = new MessageBag($messages);
+        return redirect()->back()->withErrors($messageBag);
+      }
+
+      if ($image->width() < UploadController::UPLOAD_MIN_SIZE || $image->height() < UploadController::UPLOAD_MIN_SIZE) {
+        $messages = ['warnings' => ['For the best results please upload an image with width and height no less than ' . UploadController::UPLOAD_MIN_SIZE . ' pixels.']];
+        $messageBag = new MessageBag($messages);
+        return redirect()->back()->withErrors($messageBag);
+      }
+
       $post = new Post;
       $post->user_id = auth()->id();
       $post->caption = '';
       $post->save();
       $savedFile = new File;
       $savedFile->post_id = $post->id;
-      $savedFile->handleUploadedFile($uploadedFile);
+      $savedFile->handleUploadedFile($uploadedFile, $image);
       return redirect()->route('upload.crop', ['id' => $savedFile->id]);
     }
     else {

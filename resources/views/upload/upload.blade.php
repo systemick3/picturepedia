@@ -7,6 +7,24 @@
       <div class="panel panel-default">
         <div class="panel-heading">Upload an image</div>
           <div class="panel-body">
+            @if ($errors->hasAny('errors'))
+              <div class="alert alert-danger">
+                <ul>
+                  @foreach($errors->get('errors') as $error)
+                    <li>{{ $error }}</li>
+                  @endforeach
+                </ul>
+              </div>
+            @endif
+            @if ($errors->hasAny('warnings'))
+              <div class="alert alert-warning">
+                <ul>
+                  @foreach($errors->get('warnings') as $warning)
+                    <li>{{ $warning }}</li>
+                  @endforeach
+                </ul>
+              </div>
+            @endif
             <form method="post" enctype="multipart/form-data">
               {{ csrf_field() }}
               <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
