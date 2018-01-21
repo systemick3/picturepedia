@@ -41,8 +41,8 @@ Route::post('/comments', 'CommentController@store')->name('comment.store');
 Route::middleware(['auth', 'checkuserisowner'])->group(function () {
   Route::get('/user/{id}/edit', 'UserController@edit')->name('user.edit');
   Route::post('/user/{id}/update', 'UserController@update')->name('user.update');
-  Route::get('/user/{id}/avatar/edit', 'UserController@avatarEdit')->name('user.avatar.edit');
-  Route::post('/user/{id}/avatar/update', 'UserController@avatarUpdate')->name('user.avatar.update');
+  Route::get('/user/{id}/avatar', 'UserController@avatarEdit')->name('user.avatar.edit');
+  Route::post('/user/{id}/avatar', 'UserController@avatarUpdate')->name('user.avatar.update');
   Route::get('/user/{id}/avatar/crop', 'UserController@avatarCrop')->name('user.avatar.crop');
-  Route::post('/user/{id}/avatar/handlecrop', 'UserController@handleAvatarCrop')->name('user.avatar.handlecrop');
+  Route::post('/user/{id}/avatar/crop', 'UserController@handleAvatarCrop')->name('user.avatar.handlecrop');
 });

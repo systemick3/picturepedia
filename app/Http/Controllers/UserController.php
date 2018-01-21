@@ -125,8 +125,7 @@ class UserController extends Controller
   public function avatarEdit($id)
   {
     $currentUser = auth()->user();
-    return view('user.avatar.edit')
-      ->with('user', $currentUser);
+    return view('user.avatar.edit');
   }
 
   /**
@@ -137,11 +136,12 @@ class UserController extends Controller
    */
   public function avatarUpdate(Request $request, $id)
   {
-    $this->validate($request, ['image' => 'required']);
+    $this->validate($request, ['image' => 'required|image']);
     if ($request->hasFile('image') && $request->file('image')->isValid()) {
       $uploadedFile = $request->file('image');
+      $image = Image::make($uploadedFile);
       $savedFile = new File;
-      $savedFile->handleUploadedFile($uploadedFile);
+      $savedFile->handleUploadedFile($uploadedFile, $image);
       $currentUser = auth()->user();
       $currentUser->file_id = $savedFile->id;
       $currentUser->save();

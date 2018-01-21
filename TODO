@@ -49,6 +49,8 @@
 // What to do about tiny files?
 // What to do about large files
 
+// Make avatar upload and crop use same views as upload/crop picture.
+
 Add items to main menu.
 
 Deletion of comments.
@@ -70,10 +72,6 @@ Create Edit Profile button.
 
 Linkedin upload??
 
-Messages not working.
-
-Likes & Comments.
-
 Public & private profiles.
 
 Search functionality.
@@ -84,9 +82,9 @@ Queue jobs to push to FB, Insta, Twitter Google
 
 When iterating thought user's images should I use 'include' in template?
 
-Delete Images
+Delete Images.
 
-Multiple images in same upload
+Multiple images in same upload.
 
 Ensure usernames are unique (create unique index and do check on account creation)
 
@@ -110,8 +108,6 @@ Handle upload of multiple images in one post.
 
 Enusre that only posts/files with a status of 1 are ever selected.
 
-Ability to comment on posts.
-
 Limit number of chars in caption with javascript.
 
 Continuous scroll on homepage.
@@ -123,12 +119,6 @@ All functions to have drop down bracket.
 All tabs to be 2 spaces.
 Doxygen comments on all functions.
 
-Display error messages when uploading.
-
 Rationalise route/controller/view names.
 
-Different sized images for profile page.
-
 Find default image for avatars.
-
-Make avatar upload and crop use same views as upload/crop picture.
