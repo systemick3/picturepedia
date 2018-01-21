@@ -13,6 +13,9 @@
           <div><span>Following:</span> {{ $account->getFolloweesCount() }}</div>
           <div>{{ $account->full_name }}</div>
           <div>{{ $account->description }}</div>
+          @if ($account->id == auth()->id())
+            <a href="{{ route('user.edit', $account->id) }}">Edit this profile.</a>
+          @endif
         </div>
       </div>
       <div class="panel panel-default">
