@@ -51,11 +51,11 @@
 
 // Make avatar upload and crop use same views as upload/crop picture.
 
-Add items to main menu.
+// Add items to main menu.
+
+// Enforce limit of 255 chars on posts and comments.
 
 Deletion of comments.
-
-Enforce limit of 255 chars on posts and comments.
 
 Add a page/lightbox for upload guidelines (Google 'Instagram max size').
 

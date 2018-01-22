@@ -42833,8 +42833,33 @@ window.Vue = __webpack_require__("./node_modules/vue/dist/vue.common.js");
 
 Vue.component('example-component', __webpack_require__("./resources/assets/js/components/ExampleComponent.vue"));
 
+Vue.component("counted-textarea", {
+  props: ["maxCharacters", "rows", "cols", "name", "placeholder", "value"],
+  template: '\n    <div>\n      <textarea v-model=\'taValue\' :rows=\'rows\' :cols=\'cols\' :name=\'name\' :placeholder=\'placeholder \'@input=\'$emit("input", taValue)\'></textarea>\n      <span :class="{overMax: isOverMax}">Remaining: {{ remaining }}</span>\n    </div>',
+  data: function data() {
+    return {
+      taValue: this.value
+    };
+  },
+
+  computed: {
+    isOverMax: function isOverMax() {
+      return this.remaining < 0;
+    },
+    remaining: function remaining() {
+      if (!this.taValue) return this.maxCharacters;
+
+      return this.maxCharacters - this.taValue.length;
+    }
+  }
+});
+
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    captionText: null,
+    commentText: null
+  }
 });
 
 /***/ }),

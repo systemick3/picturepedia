@@ -15,7 +15,14 @@
               {{ csrf_field() }}
               <input type="hidden" name=file_id value="{{ $file->id }}" />
               <input type="hidden" name=post_id value="{{ $post->id }}" />
-              <textarea name="caption" placeholder="Add a caption" rows="4" cols="50"></textarea>
+              <counted-textarea
+                :max-characters="250"
+                rows="4"
+                cols="50"
+                placeholder="Add a caption"
+                name="caption"
+                v-model="captionText">
+              </counted-textarea>
               <p><input type="checkbox" name="facebook" value="Facebook">Facebook</p>
               <p><input type="checkbox" name="twitter" value="Twitter">Twitter</p>
               <p><input type="submit" class="button" name="upload_thumbnail" value="Share" id="share" /></p>
