@@ -55,6 +55,8 @@
 
 // Enforce limit of 255 chars on posts and comments.
 
+// Refactor textarea js so component code is in separate file.
+
 Deletion of comments.
 
 Add a page/lightbox for upload guidelines (Google 'Instagram max size').
