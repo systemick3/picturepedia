@@ -67,12 +67,13 @@ class UploadController extends Controller
         return redirect()->back()->withErrors($messageBag);
       }
 
-      $post = new Post;
-      $post->user_id = auth()->id();
-      $post->caption = '';
-      $post->save();
+      $filename = md5(time() . $uploadedFile->getClientOriginalName()) . '.' . $uploadedFile->getClientOriginalExtension();
+      $image->fit(File::FILE_SIZE_1080);
+      $image->save(public_path(File::FILE_STORAGE_DIR . $filename));
+      $image->resize(File::FILE_SIZE_640, File::FILE_SIZE_640);
+      $image->save(public_path(File::FILE_DIR_640 . $filename));
       $savedFile = new File;
-      $savedFile->post_id = $post->id;
+      $savedFile->filename = $filename;
       $savedFile->handleUploadedFile($uploadedFile, $image);
       return redirect()->route('upload.crop', ['id' => $savedFile->id]);
     }
@@ -105,7 +106,7 @@ class UploadController extends Controller
   public function handleCrop(Request $request)
   {
     $file = File::findOrFail($request->input('id'));
-    $image = Image::make(public_path($file->filepath));
+    $image = Image::make(public_path($file->fullpath));
     $doCrop = $request->input('x') > 0 &&
       $request->input('y') > 0 &&
       $request->input('w') > 0 &&
@@ -113,13 +114,18 @@ class UploadController extends Controller
 
     if ($doCrop) {
       $image->crop($request->input('w'), $request->input('h'), $request->input('x'), $request->input('y'))
-        ->resize(600, 600);
+        ->resize(File::FILE_SIZE_1080, File::FILE_SIZE_1080);
+      $image->save(public_path(File::FILE_DIR_1080 . $file->filename));
     }
 
-    $newFilename = md5($file->filepath) . '.' . $file->filemime;
-    $file->filepath = 'storage/images/' . $newFilename;
-    $file->save();
-    $image->save(public_path('storage/images/' . $newFilename));
+    $image->resize(File::FILE_SIZE_480, File::FILE_SIZE_480);
+    $image->save(public_path(File::FILE_DIR_480 . $file->filename));
+    $image->resize(File::FILE_SIZE_320, File::FILE_SIZE_320);
+    $image->save(public_path(File::FILE_DIR_320 . $file->filename));
+    $image->resize(File::FILE_SIZE_240, File::FILE_SIZE_240);
+    $image->save(public_path(File::FILE_DIR_240 . $file->filename));
+    $image->resize(File::FILE_SIZE_150, File::FILE_SIZE_150);
+    $image->save(public_path(File::FILE_DIR_150 . $file->filename));
     return redirect()->route('upload.share', ['id' => $file->id]);
   }
 
@@ -132,7 +138,12 @@ class UploadController extends Controller
   public function share($id)
   {
     $file = File::findOrFail($id);
-    $post = Post::findOrFail($file->post_id);
+    $post = new Post;
+    $post->user_id = auth()->id();
+    $post->caption = '';
+    $post->save();
+    $file->post_id = $post->id;
+    $file->save();
     return view('upload.share')
       ->with('post', $post)
       ->with('file', $file);

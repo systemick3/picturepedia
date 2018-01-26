@@ -111,6 +111,10 @@ class UserController extends Controller
       $currentUser->password = bcrypt($request->input('password'));
     }
 
+    $currentUser->first_name = $request->input('first_name');
+    $currentUser->last_name = $request->input('last_name');
+    $currentUser->description = trim($request->input('description'));
+
     $currentUser->save();
     $request->session()->flash('status', ['Your profile was succesfully updated.']);
     return redirect()->route('user.edit', ['id' => $currentUser->id]);
@@ -140,7 +144,11 @@ class UserController extends Controller
     if ($request->hasFile('image') && $request->file('image')->isValid()) {
       $uploadedFile = $request->file('image');
       $image = Image::make($uploadedFile);
+      $image->fit(File::FILE_SIZE_640);
+      $filename = md5(time() . $uploadedFile->getClientOriginalName()) . '.' . $uploadedFile->getClientOriginalExtension();
+      $image->save(public_path(File::FILE_DIR_640 . $filename));
       $savedFile = new File;
+      $savedFile->filename = $filename;
       $savedFile->handleUploadedFile($uploadedFile, $image);
       $currentUser = auth()->user();
       $currentUser->file_id = $savedFile->id;
@@ -177,7 +185,7 @@ class UserController extends Controller
   {
     $currentUser = auth()->user();
     $file = File::findOrFail($currentUser->file_id);
-    $image = Image::make(public_path($file->filepath));
+    $image = Image::make(public_path($file->path640));
     $doCrop = $request->input('x') > 0 &&
       $request->input('y') > 0 &&
       $request->input('w') > 0 &&
@@ -188,10 +196,11 @@ class UserController extends Controller
     }
 
     $image->resize(100, 100);
-    $newFilename = md5($file->filepath) . '.' . $file->filemime;
-    $file->filepath = 'storage/images/' . $newFilename;
+    $newFilename = md5($file->fullpath) . '.' . $file->filemime;
+    $file->filepath = File::FILE_USER_AVATAR_DIR;
+    $file->filename = $newFilename;
     $file->save();
-    $image->save(public_path('storage/images/' . $newFilename));
+    $image->save(public_path(File::FILE_USER_AVATAR_DIR . $newFilename));
 
     return redirect()->route('user.edit', ['id' => $currentUser->id]);
   }

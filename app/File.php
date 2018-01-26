@@ -11,7 +11,21 @@ class File extends Model
 {
   protected $guarded = ['id', 'post_id', 'created_at', 'updated_at'];
 
-  const FILE_DEFAULT_AVATAR = 'storage/images/default/default-avatar.png';
+  const FILE_STORAGE_DIR = 'storage/images/';
+  const FILE_DIR_150 = File::FILE_STORAGE_DIR . '150x150w/';
+  const FILE_DIR_240 = File::FILE_STORAGE_DIR . '240x240w/';
+  const FILE_DIR_320 = File::FILE_STORAGE_DIR . '320x320w/';
+  const FILE_DIR_480 = File::FILE_STORAGE_DIR . '480x480w/';
+  const FILE_DIR_640 = File::FILE_STORAGE_DIR . '640x640w/';
+  const FILE_SIZE_150 = 150;
+  const FILE_SIZE_240 = 240;
+  const FILE_SIZE_320 = 320;
+  const FILE_SIZE_480 = 480;
+  const FILE_SIZE_640 = 640;
+  const FILE_SIZE_1080 = 1080;
+  const FILE_DEFAULT_AVATAR_DIR = 'storage/images/default/';
+  const FILE_DEFAULT_AVATAR_NAME = 'default-avatar.png';
+  const FILE_USER_AVATAR_DIR = 'storage/images/profile/';
 
   /**
    * Define a one-to-one relationship.
@@ -32,15 +46,71 @@ class File extends Model
   */
   public function handleUploadedFile($uploadedFile, $image)
   {
-    $image->fit(600);
-    $filename = md5(time() . $uploadedFile->getClientOriginalName()) . '.' . $uploadedFile->getClientOriginalExtension();
-    $image->save(public_path('storage/images/' . $filename));
-    $this->filename = $uploadedFile->getClientOriginalName();
-    $this->filepath = 'storage/images/' . $filename;
+    $this->filepath = File::FILE_STORAGE_DIR;
     $this->filemime = $uploadedFile->getClientOriginalExtension();
     $this->filesize = $uploadedFile->getSize();
     $this->status = 1;
     $this->save();
+  }
+
+  /**
+   * Get the file's full path.
+   *
+   * @return string
+  */
+  public function getFullPathAttribute()
+  {
+    return $this->filepath . $this->filename;
+  }
+
+  /**
+   * Get the file's 640 path by filesize.
+   *
+   * @return string
+  */
+  public function getPath640Attribute()
+  {
+    return File::FILE_DIR_640 . $this->filename;
+  }
+
+  /**
+   * Get the file's 480 path by filesize.
+   *
+   * @return string
+  */
+  public function getPath480Attribute()
+  {
+    return File::FILE_DIR_480 . $this->filename;
+  }
+
+  /**
+   * Get the file's 320 path by filesize.
+   *
+   * @return string
+  */
+  public function getPath320Attribute()
+  {
+    return File::FILE_DIR_320 . $this->filename;
+  }
+
+  /**
+   * Get the file's 240 path by filesize.
+   *
+   * @return string
+  */
+  public function getPath240Attribute()
+  {
+    return File::FILE_DIR_240 . $this->filename;
+  }
+
+  /**
+   * Get the file's 150 path by filesize.
+   *
+   * @return string
+  */
+  public function getPath150Attribute()
+  {
+    return File::FILE_DIR_150 . $this->filename;
   }
 
   /**
@@ -50,6 +120,11 @@ class File extends Model
   */
   public static function getDefaultAvatar()
   {
-    return File::whereFilepath(File::FILE_DEFAULT_AVATAR)->first();
+    return File::where(
+      [
+        'filename' => File::FILE_DEFAULT_AVATAR_NAME,
+        'filepath' => File::FILE_DEFAULT_AVATAR_DIR,
+      ]
+    )->first();
   }
 }

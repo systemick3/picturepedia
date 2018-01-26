@@ -53,7 +53,7 @@ class TwitterController extends Controller
 
     $lastPost = session()->get('lastPost');
     $file = File::findOrFail($lastPost['file_id']);
-    $media = $twitter->upload('media/upload', ['media' => public_path($file->filepath)]);
+    $media = $twitter->upload('media/upload', ['media' => public_path($file->path640)]);
     $parameters = [
       'status' => $lastPost['caption'],
       'media_ids' => $media->media_id_string,

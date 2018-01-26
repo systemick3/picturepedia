@@ -7,11 +7,11 @@
       <div class="panel panel-default">
         <div class="panel-heading">Upload an image</div>
           <div class="panel-body">
-            <img id="jcrop_target" class="image" src="{{ asset("$file->filepath") }}"/>
+            <img id="jcrop_target" class="image" src="{{ asset("$file->path640") }}"/>
           </div>
           <div class="panel-body">
             <div style="width:100px; height:100px; overflow:hidden; margin-top:20px;">
-              <img id="preview" src="{{ asset("$file->filepath") }}" style="position:relative; width:600px; height:600px;" alt="Thumbnail Preview" />
+              <img id="preview" src="{{ asset("$file->path640") }}" style="position:relative; width:640px; height:640px;" alt="Thumbnail Preview" />
             </div>
           </div>
           <div class="panel-body">

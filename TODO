@@ -57,15 +57,36 @@
 
 // Refactor textarea js so component code is in separate file.
 
+// On upload convert image to different sizes.
+
+
+################# BACK END #############################
+
 Deletion of comments.
+
+Get responsive images to display correct size.
+
+Should we store a file/avatar/upload before it has been cropped?
+Should the old file/avatar be deleted after it is cropped?
+Delete method on file?
 
 Add a page/lightbox for upload guidelines (Google 'Instagram max size').
 
 Add time of post eg 5 hours ago.
 
-On upload convert image to different sizes
-
 Different sized images on profile and hashtag pages.
+150
+240
+320
+480
+640
+1080
+
+Prevent Users deleting when avatar is deleted.
+
+Delete old avatar when new one is added.
+
+Responsive images.
 
 Emails when joining.
 
@@ -78,21 +99,15 @@ Public & private profiles.
 
 Search functionality.
 
-Hashtag suggestions when typing in caption or search.
-
 Queue jobs to push to FB, Insta, Twitter Google
 
-When iterating thought user's images should I use 'include' in template?
+When iterating thought user's images should I use 'include' in template.
 
 Delete Images.
 
 Multiple images in same upload.
 
 Ensure usernames are unique (create unique index and do check on account creation)
-
-Drag and drop image on form.
-
-Make thumbnail bigger
 
 Make a composite class to handle files and images (contain Image and File class)
 
@@ -108,13 +123,7 @@ Users must be able to delete a post.
 
 Handle upload of multiple images in one post.
 
-Enusre that only posts/files with a status of 1 are ever selected.
-
-Limit number of chars in caption with javascript.
-
-Continuous scroll on homepage.
-
-Create custom 404 & 403 pages.
+Ensure that only posts/files with a status of 1 are ever selected.
 
 Reformat code:
 All functions to have drop down bracket.
@@ -123,4 +132,14 @@ Doxygen comments on all functions.
 
 Rationalise route/controller/view names.
 
+################# FRONT END ############################
+
+Create custom 404 & 403 pages.
+
+Continuous scroll on homepage.
+
 Find default image for avatars.
+
+Drag and drop image on form.
+
+Hashtag suggestions when typing in caption or search.

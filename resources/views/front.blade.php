@@ -8,7 +8,7 @@
         <div class="panel panel-default">
           <div class="panel-body">
             @if (!empty($avatar))
-              <div><img src="{{ asset("$avatar->filepath") }}" /></div>
+              <div><img src="{{ asset("$avatar->fullpath") }}" alt="{{ $user->full_name }}"/></div>
             @endif
             <div>{{ $user->name }}</div>
             <div>{{ $user->full_name }}</div>
@@ -29,7 +29,9 @@
                   <div>
                     @foreach ($post->files as $file)
                       <transition appear name="image">
-                        <img class="image" src="{{ asset("$file->filepath") }}">
+                        <img class="image"
+                          src="{{ asset($file->path640) }}"
+                          alt="{{ $post->caption }}">
                       </transition>
                     @endforeach
                   </div>

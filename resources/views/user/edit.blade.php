@@ -101,7 +101,7 @@
             <div class="form-group">
               <div class="col-md-6 col-md-offset-4">
                 @if (isset($file))
-                  <img src="{{ asset("$file->filepath") }}" />
+                  <img src="{{ asset("$file->fullpath") }}" />
                   <a href="{{ route('user.avatar.edit', $user->id) }}">Change this avatar</a>
                 @else
                   <a href="{{ route('user.avatar.edit', $user->id) }}">Upload an avatar</a>

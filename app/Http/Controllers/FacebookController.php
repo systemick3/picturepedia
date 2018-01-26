@@ -28,7 +28,7 @@ class FacebookController extends Controller
     $file = File::findOrFail($lastPost['file_id']);
     $data = [
       'message' => $lastPost['caption'],
-      'source' => $fb->fileToUpload(public_path($file->filepath)),
+      'source' => $fb->fileToUpload(public_path($file->path640)),
     ];
 
     try {

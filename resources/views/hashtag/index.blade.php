@@ -16,7 +16,7 @@
                 <div>
                   @foreach ($post->files as $file)
                     <transition appear name="image">
-                      <img class="image" src="{{ asset("$file->filepath") }}">
+                      <img class="image" src="{{ asset("$file->path640") }}">
                     </transition>
                     <div class="caption">{!! $post->formatted_caption !!}</div>
                   @endforeach

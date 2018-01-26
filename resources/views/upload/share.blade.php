@@ -7,7 +7,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">Showing image</div>
           <div class="panel-body">
-            <img class="image" src="{{ asset("$file->filepath") }}"/>
+            <img class="image" src="{{ asset("$file->path640") }}"/>
           </div>
           <div class="panel-body">
             <h3>Share your picture</h3>
