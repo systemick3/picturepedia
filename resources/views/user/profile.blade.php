@@ -30,8 +30,12 @@
                     <transition appear name="image">
                       <img
                         class="image"
-                        sizes="640px"
-                        srcset="{{ asset("$file->fullpath 1080w, $file->path640 640w, $file->path480 480w") }}"
+                        sizes="320px"
+                        srcset="
+                          {{ asset($file->path480) }} 480w,
+                          {{ asset($file->path320) }} 320w,
+                          {{ asset($file->path240) }} 240w,
+                          {{ asset($file->path150) }} 150w"
                         src="{{ asset("$file->path640") }}"
                         alt="{{ $post->caption }}">
                     </transition>

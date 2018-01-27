@@ -59,6 +59,18 @@
 
 // On upload convert image to different sizes.
 
+// Responsive images.
+
+// Prevent Users deleting when avatar is deleted.
+
+// Different sized images on profile and hashtag pages.
+// 150
+// 240
+// 320
+// 480
+// 640
+// 1080
+
 
 ################# BACK END #############################
 
@@ -74,19 +86,7 @@ Add a page/lightbox for upload guidelines (Google 'Instagram max size').
 
 Add time of post eg 5 hours ago.
 
-Different sized images on profile and hashtag pages.
-150
-240
-320
-480
-640
-1080
-
-Prevent Users deleting when avatar is deleted.
-
 Delete old avatar when new one is added.
-
-Responsive images.
 
 Emails when joining.
 
@@ -143,3 +143,5 @@ Find default image for avatars.
 Drag and drop image on form.
 
 Hashtag suggestions when typing in caption or search.
+
+Remove everything except images form profile and hashtag pages.
