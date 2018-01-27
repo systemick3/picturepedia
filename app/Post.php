@@ -71,6 +71,37 @@ class Post extends Model
   }
 
   /**
+   * Get the amount of time since this post was created.
+   *
+   * @return string
+  */
+  public function getFormattedCreatedAttribute  ()
+  {
+    $date1 = new \DateTime($this->created_at);
+    $date2 = new \DateTime();
+    $diff = $date2->diff($date1);
+
+    if ($diff->y > 0) {
+      return $diff->y . ' ' . str_plural('year', $diff->y) . ' ago.';
+    }
+    if ($diff->m > 0) {
+      return $diff->m . ' ' . str_plural('month', $diff->m) .  ' ago.';
+    }
+    if ($diff->d > 0) {
+      return $diff->d . ' ' . str_plural('day', $diff->d) .  ' ago.';
+    }
+    if ($diff->h > 0) {
+      return $diff->h . ' ' . str_plural('hour', $diff->h) .  ' ago.';
+    }
+    if ($diff->i > 0) {
+      return $diff->i . ' ' . str_plural('minute', $diff->i) .  ' ago.';
+    }
+    if ($diff->s > 0) {
+      return $diff->s . ' ' . str_plural('second', $diff->s) .  ' ago.';
+    }
+  }
+
+  /**
    * Format the hashtags and names in a caption.
    *
    * @return string

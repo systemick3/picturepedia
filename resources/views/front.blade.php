@@ -24,7 +24,8 @@
               @else
                 @foreach ($posts as $post)
                   <div class="user">
-                    Posted by {{ $post->user->name }}
+                    <p>Posted by {{ $post->user->name }}</p>
+                    <p>{{ $post->formattedCreated }}</p>
                   </div>
                   <div>
                     @foreach ($post->files as $file)

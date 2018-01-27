@@ -71,6 +71,8 @@
 // 640
 // 1080
 
+// Add time of post eg 5 hours ago.
+
 
 ################# BACK END #############################
 
@@ -83,8 +85,6 @@ Should the old file/avatar be deleted after it is cropped?
 Delete method on file?
 
 Add a page/lightbox for upload guidelines (Google 'Instagram max size').
-
-Add time of post eg 5 hours ago.
 
 Delete old avatar when new one is added.
 
