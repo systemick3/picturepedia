@@ -28,7 +28,12 @@
                 <div>
                   @foreach ($post->files as $file)
                     <transition appear name="image">
-                      <img class="image" src="{{ asset("$file->path640") }}" alt="{{ $post->caption }}">
+                      <img
+                        class="image"
+                        sizes="640px"
+                        srcset="{{ asset("$file->fullpath 1080w, $file->path640 640w, $file->path480 480w") }}"
+                        src="{{ asset("$file->path640") }}"
+                        alt="{{ $post->caption }}">
                     </transition>
                     <div class="caption">{!! $post->formatted_caption !!}</div>
                   @endforeach
