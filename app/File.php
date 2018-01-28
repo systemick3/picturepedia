@@ -25,7 +25,7 @@ class File extends Model
   const FILE_SIZE_1080 = 1080;
   const FILE_DEFAULT_AVATAR_DIR = 'storage/images/default/';
   const FILE_DEFAULT_AVATAR_NAME = 'default-avatar.png';
-  const FILE_USER_AVATAR_DIR = 'storage/images/profile/';
+  const FILE_USER_AVATAR_DIR = File::FILE_STORAGE_DIR . 'profile/';
 
   /**
    * Define a one-to-one relationship.
@@ -60,12 +60,27 @@ class File extends Model
   */
   public function remove()
   {
-    unlink(public_path() . '/' . $this->fullpath);
-    unlink(public_path() . '/' . $this->path640);
-    unlink(public_path() . '/' . $this->path480);
-    unlink(public_path() . '/' . $this->path320);
-    unlink(public_path() . '/' . $this->path240);
-    unlink(public_path() . '/' . $this->path150);
+    if (is_file(public_path() . '/' . $this->fullpath)) {
+      unlink(public_path() . '/' . $this->fullpath);
+    }
+    if (is_file(public_path() . '/' . $this->path640)) {
+      unlink(public_path() . '/' . $this->path640);
+    }
+    if (is_file(public_path() . '/' . $this->path480)) {
+      unlink(public_path() . '/' . $this->path480);
+    }
+    if (is_file(public_path() . '/' . $this->path320)) {
+      unlink(public_path() . '/' . $this->path320);
+    }
+    if (is_file(public_path() . '/' . $this->path240)) {
+      unlink(public_path() . '/' . $this->path240);
+    }
+    if (is_file(public_path() . '/' . $this->path150)) {
+      unlink(public_path() . '/' . $this->path150);
+    }
+    if (is_file(public_path() . '/' . $this->path150)) {
+      unlink(public_path() . '/' . $this->pathAvatar);
+    }
     return $this->delete();
   }
 
@@ -127,6 +142,16 @@ class File extends Model
   public function getPath150Attribute()
   {
     return File::FILE_DIR_150 . $this->filename;
+  }
+
+  /**
+   * Get the file's avatar path.
+   *
+   * @return string
+  */
+  public function getPathAvatarAttribute()
+  {
+    return File::FILE_USER_AVATAR_DIR . $this->filename;
   }
 
   /**

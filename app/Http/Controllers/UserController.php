@@ -152,6 +152,11 @@ class UserController extends Controller
       $savedFile->filename = $filename;
       $savedFile->handleUploadedFile($uploadedFile, $image);
       $currentUser = auth()->user();
+
+      if ($currentUser->file_id != NULL) {
+        $oldAvatar = File::find($currentUser->file_id);
+        $oldAvatar->remove();
+      }
       $currentUser->file_id = $savedFile->id;
       $currentUser->save();
     }

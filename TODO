@@ -77,6 +77,8 @@
 
 // Deletion of comments.
 
+// Delete old avatar when new one is added.
+
 
 ################# BACK END #############################
 
@@ -91,8 +93,6 @@ Should the old file/avatar be deleted after it is cropped?
 Delete method on file?
 
 Add a page/lightbox for upload guidelines (Google 'Instagram max size').
-
-Delete old avatar when new one is added.
 
 Emails when joining.
 
