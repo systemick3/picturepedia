@@ -55,6 +55,7 @@ class UserController extends Controller
     $file = $account->getAvatar();
     return view('user.profile')
       ->with('account', $account)
+      ->with('user', $account)
       ->with('file', $file)
       ->with('posts', $posts);
   }
