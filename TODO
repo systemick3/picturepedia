@@ -73,8 +73,14 @@
 
 // Add time of post eg 5 hours ago.
 
+// Users must be able to delete a post.
+
 
 ################# BACK END #############################
+
+Put 1080 images in 1080x1080 directory.
+
+Page to display full size image in lightbox.
 
 Deletion of comments.
 
@@ -118,8 +124,6 @@ Login with facebook.
 Login with Twitter.
 
 Store Twitter/Facebook tokens to prevent having to login again.
-
-Users must be able to delete a post.
 
 Handle upload of multiple images in one post.
 

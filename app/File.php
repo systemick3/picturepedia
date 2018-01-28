@@ -54,6 +54,22 @@ class File extends Model
   }
 
   /**
+   * Delete this file in the database and on the file system.
+   *
+   * @return boolean|void
+  */
+  public function remove()
+  {
+    unlink(public_path() . '/' . $this->fullpath);
+    unlink(public_path() . '/' . $this->path640);
+    unlink(public_path() . '/' . $this->path480);
+    unlink(public_path() . '/' . $this->path320);
+    unlink(public_path() . '/' . $this->path240);
+    unlink(public_path() . '/' . $this->path150);
+    return $this->delete();
+  }
+
+  /**
    * Get the file's full path.
    *
    * @return string

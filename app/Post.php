@@ -71,6 +71,19 @@ class Post extends Model
   }
 
   /**
+   * Delete this post and it's related files.
+   *
+   * @return void
+  */
+  public function remove()
+  {
+    foreach ($this->files as $file) {
+      $file->remove();
+    }
+    $this->delete();
+  }
+
+  /**
    * Get the amount of time since this post was created.
    *
    * @return string
@@ -102,9 +115,9 @@ class Post extends Model
   }
 
   /**
-   * Format the hashtags and names in a caption.
+   * Determine if a post has been liked by a user.
    *
-   * @return string
+   * @return integer/boolean
   */
   public function isLikedByCurrentUser()
   {

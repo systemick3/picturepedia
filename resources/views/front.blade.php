@@ -50,6 +50,11 @@
                       <a href="{{ route('like.like', $post->id) }}">Like</a>
                     @endif
                   </div>
+                  @if ($post->user_id == $user->id)
+                    <div class="remove">
+                      <a href="{{ route('post.remove', $post->id) }}">Remove</a>
+                    </div>
+                  @endif
                   @include('partials/comment/comments')
                   @include('partials/comment/comment-form')
                 @endforeach
