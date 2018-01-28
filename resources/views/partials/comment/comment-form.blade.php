@@ -11,4 +11,5 @@
       v-model="commentText">
     </counted-textarea>
     <p><input type="submit" class="button" name="add_comment" value="Add comment" id="comment-create" /></p>
+  </form>
 </div>

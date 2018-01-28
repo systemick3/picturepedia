@@ -81,6 +81,19 @@
         <div class="col-md-8 col-md-offset-2">
           <div class="panel panel-default">
             <div class="panel-body">
+              <div class="search-form">
+                <form class="form-horizontal" method="POST" action="{{ route('search.search') }}">
+                  {{ csrf_field() }}
+                  <input id="search-term" class="form-control" type="text" name="search_term" placeholder="Search" />
+                  <button type="submit" class="btn btn-primary">
+                    Search
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-body">
               @if (session('status'))
                 <div class="alert alert-success">
                   @foreach (session('status') as $status)

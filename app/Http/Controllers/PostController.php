@@ -9,13 +9,13 @@ class PostController extends Controller
 {
   /*
   |--------------------------------------------------------------------------
-  | Comment Controller
+  | Post Controller
   |--------------------------------------------------------------------------
   |
-  | This controller handles creation and deletion of comments.
+  | This controller handles deletion of posts.
   |
   */
-  
+
   /**
    * Delete an existing post.
    * @param $request Illuminate\Http\Request

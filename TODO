@@ -84,8 +84,6 @@ Put 1080 images in 1080x1080 directory.
 
 Page to display full size image in lightbox.
 
-Get responsive images to display correct size.
-
 Check all doxygen @param & @return.
 
 Should we store a file/avatar/upload before it has been cropped?
@@ -106,12 +104,14 @@ Linkedin upload??
 Public & private profiles.
 
 Search functionality.
+Need a hashtags table with count.
+Search form displays drop down list.
+
+Hashtags table & functionality.
 
 Queue jobs to push to FB, Insta, Twitter Google
 
 When iterating thought user's images should I use 'include' in template.
-
-Delete Images.
 
 Multiple images in same upload.
 
