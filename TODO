@@ -75,6 +75,8 @@
 
 // Users must be able to delete a post.
 
+// Deletion of comments.
+
 
 ################# BACK END #############################
 
@@ -82,9 +84,9 @@ Put 1080 images in 1080x1080 directory.
 
 Page to display full size image in lightbox.
 
-Deletion of comments.
-
 Get responsive images to display correct size.
+
+Check all doxygen @param & @return.
 
 Should we store a file/avatar/upload before it has been cropped?
 Should the old file/avatar be deleted after it is cropped?

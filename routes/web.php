@@ -37,6 +37,9 @@ Route::get('/like/{post_id}', 'LikeController@like')->name('like.like');
 Route::get('/like/{id}/unlike', 'LikeController@unlike')->name('like.unlike');
 
 Route::post('/comments', 'CommentController@store')->name('comment.store');
+Route::get('/comment/{id}/remove', 'CommentController@remove')->name('comment.remove');
+
+Route::get('/post/{id}/remove', 'PostController@remove')->name('post.remove');
 
 Route::middleware(['auth', 'checkuserisowner'])->group(function () {
   Route::get('/user/{id}/edit', 'UserController@edit')->name('user.edit');
@@ -45,5 +48,4 @@ Route::middleware(['auth', 'checkuserisowner'])->group(function () {
   Route::post('/user/{id}/avatar', 'UserController@avatarUpdate')->name('user.avatar.update');
   Route::get('/user/{id}/avatar/crop', 'UserController@avatarCrop')->name('user.avatar.crop');
   Route::post('/user/{id}/avatar/crop', 'UserController@handleAvatarCrop')->name('user.avatar.handlecrop');
-  Route::get('/post/{id}', 'PostController@remove')->name('post.remove');
 });
