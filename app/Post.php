@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\File;
+use App\Hashtag;
 
 class Post extends Model
 {
@@ -131,5 +132,28 @@ class Post extends Model
       }
     }
     return FALSE;
+  }
+
+  /**
+   * Create/update any hashtags in this post.
+   *
+   * @return void
+  */
+  public function createHashtags() {
+    preg_match_all("/(#\w+)/", $this->caption, $matches);
+
+    foreach ($matches[0] as $match) {
+      $text = substr($match, 1);
+      $hashtag = Hashtag::where('hashtag', $text)->first();
+      if (!empty($hashtag)) {
+        $hashtag->count++;
+      }
+      else {
+        $hashtag = new Hashtag;
+        $hashtag->hashtag = $text;
+        $hashtag->count = 0;
+      }
+      $hashtag->save();
+    }
   }
 }
