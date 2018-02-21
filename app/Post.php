@@ -145,14 +145,16 @@ class Post extends Model
     foreach ($matches[0] as $match) {
       $text = substr($match, 1);
       $hashtag = Hashtag::where('hashtag', $text)->first();
+
       if (!empty($hashtag)) {
         $hashtag->count++;
       }
       else {
         $hashtag = new Hashtag;
         $hashtag->hashtag = $text;
-        $hashtag->count = 0;
+        $hashtag->count = 1;
       }
+
       $hashtag->save();
     }
   }

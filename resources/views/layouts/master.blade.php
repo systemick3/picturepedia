@@ -82,13 +82,10 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <div class="search-form">
-                <form class="form-horizontal" method="POST" action="{{ route('search.search') }}">
-                  {{ csrf_field() }}
-                  <input id="search-term" class="form-control" type="text" name="search_term" placeholder="Search" />
-                  <button type="submit" class="btn btn-primary">
-                    Search
-                  </button>
-                </form>
+                <search-autocomplete></search-autocomplete>
+              </div>
+              <div class="search-results">
+
               </div>
             </div>
           </div>

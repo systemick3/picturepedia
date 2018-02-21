@@ -128,6 +128,26 @@ class User extends Authenticatable
   }
 
   /**
+   * Get the user's formatted username.
+   *
+   * @return string
+  */
+  public function getFormattedNameAttribute()
+  {
+    return '@' . $this->name;
+  }
+
+  /**
+   * Get the user's follower count.
+   *
+   * @return string
+  */
+  public function getFollowerCountAttribute()
+  {
+    return count($this->followers);
+  }
+
+  /**
    * Return posts for a user's timeline.
    * Get all posts for all the users followed by this user.
    *

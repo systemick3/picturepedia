@@ -19,6 +19,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 
 Vue.component('counted-textarea', require('./components/CountedTextarea.vue'));
 
+Vue.component('search-autocomplete', require('./components/Autocomplete.vue'));
+
 const app = new Vue({
     el: '#app',
     data:{

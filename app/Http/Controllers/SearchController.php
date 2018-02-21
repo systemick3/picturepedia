@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
+use App\Hashtag;
+use App\User;
 
 class SearchController extends Controller
 {
@@ -29,24 +31,42 @@ class SearchController extends Controller
   }
 
   /**
-   * Create or replace a user's avatar.
+   * Get search results.
    *
-   * @return view()
+   * @param $search string
+   *
+   * @return array
    */
-  public function results($term)
+  public function results($search)
   {
-    //$terrm = ltrim($term, '')
-    $posts = Post::with('files')
-      ->where('caption', 'like', '%#' . $term . '%')
-      ->orderBy('created_at', 'desc')
+    $hashtags = Hashtag::take(5)->where('hashtag', 'like', '%' . $search . '%')
+      ->orderBy('count', 'desc')
       ->get();
 
-    //$users
+    $results = [];
+    foreach ($hashtags as $hashtag) {
+      $hashtag->link = '<a href="' . route('hashtag.index', $hashtag->hashtag) . '">' . $hashtag->formatted_name . '</a>';
+      $results[] = $hashtag;
+    }
 
-    // foreach ($posts as $post) {
-    //   var_dump($post);
-    // }
+    $users = User::take(5)->where('name', 'like', '%' . $search . '%')
+      ->orderBy('name', 'desc')
+      ->get();
 
-    return "Hello $term" . $term[0];
+    $users = $users->all();
+    usort($users, [$this, 'userComp']);
+    $users = array_reverse($users);
+    foreach ($users as $user) {
+      $user->link = '<a href="' . route('user.profile', $user->name) . '">' . $user->formatted_name . '</a>';
+      $results[] = $user;
+    }
+
+    return response()->json($results);
+  }
+
+  // Sort users by follower_count.
+  private function userComp($a, $b)
+  {
+    return strcmp($a->follower_count, $b->follower_count);
   }
 }

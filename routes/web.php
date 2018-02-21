@@ -42,7 +42,7 @@ Route::get('/comment/{id}/remove', 'CommentController@remove')->name('comment.re
 Route::get('/post/{id}/remove', 'PostController@remove')->name('post.remove');
 
 Route::post('/search', 'SearchController@search')->name('search.search');
-Route::get('/search/{term}', 'SearchController@results')->name('search.results');
+Route::get('/search/{search}', 'SearchController@results')->name('search.results');
 
 Route::middleware(['auth', 'checkuserisowner'])->group(function () {
   Route::get('/user/{id}/edit', 'UserController@edit')->name('user.edit');

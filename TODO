@@ -79,6 +79,13 @@
 
 // Delete old avatar when new one is added.
 
+// Hashtags table & functionality.
+
+// Search functionality.
+// Hashtags table with count.
+// Ajax call to get hashtags and users.
+// Autocomplete dropdown.
+
 
 ################# BACK END #############################
 
@@ -102,13 +109,6 @@ Create Edit Profile button.
 Linkedin upload??
 
 Public & private profiles.
-
-Search functionality.
-Hashtags table with count.
-Ajax call to get hashtags and users.
-Autocomplete dropdown.
-
-Hashtags table & functionality.
 
 Queue jobs to push to FB, Insta, Twitter Google
 
