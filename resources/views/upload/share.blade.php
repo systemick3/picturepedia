@@ -7,7 +7,14 @@
       <div class="panel panel-default">
         <div class="panel-heading">Showing image</div>
           <div class="panel-body">
-            You have uploaded {{ $file_count }} {{ str_plural('file', $file_count) }}
+            <p>You have uploaded {{ $file_count }} {{ str_plural('file', $file_count) }}</p>
+            @if (count($thumbnails) > 1)
+              @foreach ($thumbnails as $thumbnail)
+                <div class="col-md-2">
+                  <img src="{{ asset($thumbnail->path80 )}}" />
+                </div>
+              @endforeach
+            @endif
           </div>
           <div class="panel-body">
             <img class="image" src="{{ asset("$file->path640") }}"/>

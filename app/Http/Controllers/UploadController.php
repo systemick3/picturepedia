@@ -39,7 +39,6 @@ class UploadController extends Controller
    */
   public function upload()
   {
-    var_dump(session()->get('lastPost'));
     return view('upload.upload');
   }
 
@@ -127,6 +126,8 @@ class UploadController extends Controller
     $image->save(public_path(File::FILE_DIR_240 . $file->filename));
     $image->resize(File::FILE_SIZE_150, File::FILE_SIZE_150);
     $image->save(public_path(File::FILE_DIR_150 . $file->filename));
+    $image->resize(File::FILE_SIZE_80, File::FILE_SIZE_80);
+    $image->save(public_path(File::FILE_DIR_80 . $file->filename));
     return redirect()->route('upload.share', ['id' => $file->id]);
   }
 
@@ -165,11 +166,13 @@ class UploadController extends Controller
     $file->post_id = $post->id;
     $file->save();
 
+    $thumbnails = File::whereIn('id', $lastPost['file_ids'])->get();
     $file_count = count($lastPost['file_ids']);
     $add_more = $file_count < Post::POST_MAX_FILES;
     return view('upload.share')
       ->with('post', $post)
       ->with('file_count', $file_count)
+      ->with('thumbnails', $thumbnails)
       ->with('add_more', $add_more)
       ->with('file', $file);
   }

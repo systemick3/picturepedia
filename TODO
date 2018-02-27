@@ -92,12 +92,16 @@
 
 // Handle upload of multiple images in one post.
 
+// Show thumbnails of uploaded files on share page.
+
 
 ################# BACK END #############################
 
 Write tests.
 
-Show thumbnamils of uploaded files on share page.
+Sort upload messages.
+
+Discs for files to show which image is being viewed.
 
 Put 1080 images in 1080x1080 directory.
 
@@ -143,6 +147,7 @@ Reformat code:
 All functions to have drop down bracket.
 All tabs to be 2 spaces.
 Doxygen comments on all functions.
+Use PSR2 coding standards.
 
 Rationalise route/controller/view names.
 

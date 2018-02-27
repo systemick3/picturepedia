@@ -12,12 +12,14 @@ class File extends Model
   protected $guarded = ['id', 'post_id', 'created_at', 'updated_at'];
 
   const FILE_STORAGE_DIR = 'storage/images/';
+  const FILE_DIR_80 = File::FILE_STORAGE_DIR . '80x80w/';
   const FILE_DIR_150 = File::FILE_STORAGE_DIR . '150x150w/';
   const FILE_DIR_240 = File::FILE_STORAGE_DIR . '240x240w/';
   const FILE_DIR_320 = File::FILE_STORAGE_DIR . '320x320w/';
   const FILE_DIR_480 = File::FILE_STORAGE_DIR . '480x480w/';
   const FILE_DIR_640 = File::FILE_STORAGE_DIR . '640x640w/';
-  const FILE_DIR_1080 = File::FILE_STORAGE_DIR . '1080x1080/';
+  const FILE_DIR_1080 = File::FILE_STORAGE_DIR . '1080x1080w/';
+  const FILE_SIZE_80 = 80;
   const FILE_SIZE_150 = 150;
   const FILE_SIZE_240 = 240;
   const FILE_SIZE_320 = 320;
@@ -143,6 +145,16 @@ class File extends Model
   public function getPath150Attribute()
   {
     return File::FILE_DIR_150 . $this->filename;
+  }
+
+  /**
+   * Get the file's 80 path by filesize.
+   *
+   * @return string
+  */
+  public function getPath80Attribute()
+  {
+    return File::FILE_DIR_80 . $this->filename;
   }
 
   /**
