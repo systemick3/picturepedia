@@ -33,6 +33,7 @@ class FrontController extends Controller
       return view('front')
         ->with('posts', $currentUser->getTimeline())
         ->with('avatar', $avatar)
+        ->with('scripts', ['js/image.js'])
         ->with('user', $currentUser);
     }
     else {

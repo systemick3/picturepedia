@@ -86,6 +86,8 @@
 // Ajax call to get hashtags and users.
 // Autocomplete dropdown.
 
+// Front end js for multiple images in same post.
+
 
 ################# BACK END #############################
 
@@ -101,6 +103,8 @@ Delete method on file?
 
 Add a page/lightbox for upload guidelines (Google 'Instagram max size').
 
+Terms and Conditions page.
+
 Emails when joining.
 
 Create follow button.
@@ -113,8 +117,6 @@ Public & private profiles.
 Queue jobs to push to FB, Insta, Twitter Google
 
 When iterating thought user's images should I use 'include' in template.
-
-Multiple images in same upload.
 
 Ensure usernames are unique (create unique index and do check on account creation)
 
@@ -151,4 +153,4 @@ Drag and drop image on form.
 
 Hashtag suggestions when typing in caption or search.
 
-Remove everything except images form profile and hashtag pages.
+Remove everything except images from profile and hashtag pages.

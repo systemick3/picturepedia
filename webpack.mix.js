@@ -17,5 +17,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
     'resources/assets/js/jquery.Jcrop.js',
     'resources/assets/js/crop.js'
   ], 'public/js/crop.js')
+  .scripts([
+    'resources/assets/js/image.js',
+  ], 'public/js/image.js')
   .version()
    .sass('resources/assets/sass/app.scss', 'public/css');
