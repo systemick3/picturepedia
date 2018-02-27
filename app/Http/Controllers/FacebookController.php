@@ -25,32 +25,35 @@ class FacebookController extends Controller
     }
 
     $lastPost = session()->get('lastPost');
-    $file = File::findOrFail($lastPost['file_id']);
-    $data = [
-      'message' => $lastPost['caption'],
-      'source' => $fb->fileToUpload(public_path($file->path640)),
-    ];
+    //$file = File::findOrFail($lastPost['file_id']);
+    foreach ($lastPost['file_ids'] as $file_id) {
+      $file = File::findOrFail($file_id);
+      $data = [
+        'message' => $lastPost['caption'],
+        'source' => $fb->fileToUpload(public_path($file->path640)),
+      ];
 
-    try {
-      // Returns a `Facebook\FacebookResponse` object
-      $response = $fb->post('/me/photos', $data, $token);
-    } catch(Facebook\Exceptions\FacebookResponseException $e) {
-      echo 'Graph returned an error: ' . $e->getMessage();
-      exit;
-    } catch(Facebook\Exceptions\FacebookSDKException $e) {
-      echo 'Facebook SDK returned an error: ' . $e->getMessage();
-      exit;
+      try {
+        // Returns a `Facebook\FacebookResponse` object
+        $response = $fb->post('/me/photos', $data, $token);
+      } catch(Facebook\Exceptions\FacebookResponseException $e) {
+        echo 'Graph returned an error: ' . $e->getMessage();
+        exit;
+      } catch(Facebook\Exceptions\FacebookSDKException $e) {
+        echo 'Facebook SDK returned an error: ' . $e->getMessage();
+        exit;
+      }
+
+      $graphNode = $response->getGraphNode();
+      if (!empty($graphNode)) {
+        session()->push('lastPost.status', 'The picture has been added to your Facebook feed.');
+      }
+      else {
+        session()->push('lastPost.error', 'There was a problem adding the picture to your Facebook feed.');
+      }
     }
 
-    $graphNode = $response->getGraphNode();
-    if (!empty($graphNode)) {
-      session()->push('lastPost.status', 'The picture has been added to your Facebook feed.');
-    }
-    else {
-      session()->push('lastPost.error', 'There was a problem adding the picture to your Facebook feed.');
-    }
-
-    $lastPost = session()->get('lastPost');
+    //$lastPost = session()->get('lastPost');
     if ($lastPost['twitter']) {
       return redirect()->route('twitter.index');
     }

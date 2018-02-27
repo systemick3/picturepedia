@@ -7,6 +7,9 @@
       <div class="panel panel-default">
         <div class="panel-heading">Showing image</div>
           <div class="panel-body">
+            You have uploaded {{ $file_count }} {{ str_plural('file', $file_count) }}
+          </div>
+          <div class="panel-body">
             <img class="image" src="{{ asset("$file->path640") }}"/>
           </div>
           <div class="panel-body">
@@ -25,6 +28,13 @@
               </counted-textarea>
               <p><input type="checkbox" name="facebook" value="Facebook">Facebook</p>
               <p><input type="checkbox" name="twitter" value="Twitter">Twitter</p>
+              @if ($add_more)
+                <p>
+                  <a href="{{ route('upload.upload') }}">
+                    <input type="button" class="button" name="upload_another" value="Upload another picture" id="upload" />
+                  </a>
+                </p>
+              @endif
               <p><input type="submit" class="button" name="upload_thumbnail" value="Share" id="share" /></p>
             </form>
           </div>

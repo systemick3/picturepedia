@@ -17,6 +17,7 @@ class File extends Model
   const FILE_DIR_320 = File::FILE_STORAGE_DIR . '320x320w/';
   const FILE_DIR_480 = File::FILE_STORAGE_DIR . '480x480w/';
   const FILE_DIR_640 = File::FILE_STORAGE_DIR . '640x640w/';
+  const FILE_DIR_1080 = File::FILE_STORAGE_DIR . '1080x1080/';
   const FILE_SIZE_150 = 150;
   const FILE_SIZE_240 = 240;
   const FILE_SIZE_320 = 320;

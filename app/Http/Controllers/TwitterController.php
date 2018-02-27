@@ -52,11 +52,16 @@ class TwitterController extends Controller
     );
 
     $lastPost = session()->get('lastPost');
-    $file = File::findOrFail($lastPost['file_id']);
-    $media = $twitter->upload('media/upload', ['media' => public_path($file->path640)]);
+    $media_id_string = '';
+    foreach ($lastPost['file_ids'] as $file_id) {
+      $file = File::findOrFail($file_id);
+      $media = $twitter->upload('media/upload', ['media' => public_path($file->path640)]);
+      $media_id_string .= $media->media_id_string . ',';
+    }
+
     $parameters = [
       'status' => $lastPost['caption'],
-      'media_ids' => $media->media_id_string,
+      'media_ids' => trim($media_id_string, ','),
     ];
 
     $status = $twitter->post('statuses/update', $parameters);

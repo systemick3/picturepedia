@@ -39,6 +39,7 @@ class UploadController extends Controller
    */
   public function upload()
   {
+    var_dump(session()->get('lastPost'));
     return view('upload.upload');
   }
 
@@ -115,9 +116,9 @@ class UploadController extends Controller
     if ($doCrop) {
       $image->crop($request->input('w'), $request->input('h'), $request->input('x'), $request->input('y'))
         ->resize(File::FILE_SIZE_1080, File::FILE_SIZE_1080);
-      $image->save(public_path(File::FILE_DIR_1080 . $file->filename));
     }
 
+    $image->save(public_path(File::FILE_DIR_1080 . $file->filename));
     $image->resize(File::FILE_SIZE_480, File::FILE_SIZE_480);
     $image->save(public_path(File::FILE_DIR_480 . $file->filename));
     $image->resize(File::FILE_SIZE_320, File::FILE_SIZE_320);
@@ -137,15 +138,39 @@ class UploadController extends Controller
    */
   public function share($id)
   {
+    $lastPost = session()->get('lastPost');
+    if (empty($lastPost)) {
+      $lastPost = ['file_ids' => [$id]];
+    }
+    else {
+      if (!in_array($id, $lastPost['file_ids'])) {
+        $lastPost['file_ids'][] = $id;
+      }
+    }
+
     $file = File::findOrFail($id);
-    $post = new Post;
-    $post->user_id = auth()->id();
-    $post->caption = '';
-    $post->save();
+
+    if (isset($lastPost['post_id'])) {
+      $post = Post::findOrFail($lastPost['post_id']);
+    }
+    else {
+      $post = new Post;
+      $post->user_id = auth()->id();
+      $post->caption = '';
+      $post->save();
+      $lastPost['post_id'] = $post->id;
+    }
+
+    session()->put('lastPost', $lastPost);
     $file->post_id = $post->id;
     $file->save();
+
+    $file_count = count($lastPost['file_ids']);
+    $add_more = $file_count < Post::POST_MAX_FILES;
     return view('upload.share')
       ->with('post', $post)
+      ->with('file_count', $file_count)
+      ->with('add_more', $add_more)
       ->with('file', $file);
   }
 
@@ -157,15 +182,16 @@ class UploadController extends Controller
    */
   public function handleShare(Request $request)
   {
-    $lastPost = [
+    $params = [
       'post_id' => $request->input('post_id'),
-      'file_id' => $request->input('file_id'),
       'caption' => $request->input('caption'),
       'facebook' => $request->input('facebook') === 'Facebook',
       'twitter' => $request->input('twitter') === 'Twitter',
       'status' => [],
       'error' => [],
     ];
+
+    $lastPost = array_merge(session()->get('lastPost'), $params);
 
     session()->put('lastPost', $lastPost);
     if ($request->input('facebook') === 'Facebook') {

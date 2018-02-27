@@ -37,7 +37,8 @@ class FrontController extends Controller
         ->with('user', $currentUser);
     }
     else {
-      return view('front');
+      return view('front')
+        ->with('scripts', []);
     }
   }
 }

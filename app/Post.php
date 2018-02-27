@@ -10,6 +10,8 @@ class Post extends Model
 {
   protected $guarded = ['id', 'user_id', 'created_at', 'updated_at'];
 
+  const POST_MAX_FILES = 4; // Twitter allows up to 4 pics in 1 post.
+
   /**
    * Define a one-to-many relationship.
    * Get the files for this post.

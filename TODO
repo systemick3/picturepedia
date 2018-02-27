@@ -88,8 +88,16 @@
 
 // Front end js for multiple images in same post.
 
+// Delete method on file?
+
+// Handle upload of multiple images in one post.
+
 
 ################# BACK END #############################
+
+Write tests.
+
+Show thumbnamils of uploaded files on share page.
 
 Put 1080 images in 1080x1080 directory.
 
@@ -99,7 +107,6 @@ Check all doxygen @param & @return.
 
 Should we store a file/avatar/upload before it has been cropped?
 Should the old file/avatar be deleted after it is cropped?
-Delete method on file?
 
 Add a page/lightbox for upload guidelines (Google 'Instagram max size').
 
@@ -130,8 +137,6 @@ Login with Twitter.
 
 Store Twitter/Facebook tokens to prevent having to login again.
 
-Handle upload of multiple images in one post.
-
 Ensure that only posts/files with a status of 1 are ever selected.
 
 Reformat code:
@@ -140,6 +145,8 @@ All tabs to be 2 spaces.
 Doxygen comments on all functions.
 
 Rationalise route/controller/view names.
+
+Handle posts that don't contain files. (unlikely but could happen - check for file before displaying post);
 
 ################# FRONT END ############################
 
