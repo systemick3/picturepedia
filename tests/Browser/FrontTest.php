@@ -22,7 +22,7 @@ class FrontTest extends DuskTestCase
     public function testFrontAnonymous()
     {
         $this->browse(function (Browser $browser) {
-            $title = config('app.name', 'Laravel');
+            $title = config('app.name', 'Picturepedia');
             $cookie = 'picturepedia_session';
 
             $browser->visit('/')
@@ -53,29 +53,41 @@ class FrontTest extends DuskTestCase
     public function testFrontAuthenticated()
     {
       $this->browse(function (Browser $browser) {
-          $title = config('app.name', 'Laravel');
+          $title = config('app.name', 'Picturepedia');
           $cookie = 'picturepedia_session';
           $user = User::find(2);
+          $posted_by = 'Posted by';
+          $like_text = 'Like';
+          $profile_text = 'Profile';
+          $upload_text = 'Upload';
+          $logout_text = 'Logout';
+          $post_class = '.post';
+          $avatar_class = '.avatar';
+          $search_form_class = '.search-form';
+          $comment_form_class = '.comment-form';
 
           $browser->loginAs($user)
             ->visit('/')
             ->assertRouteIs('front')
             ->assertTitle($title)
             ->assertSee($title)
-            ->assertSee('Posted by')
+            ->assertSee($posted_by)
             ->assertSee($user->name)
             ->assertSee($user->fullname)
-            ->assertSeeLink('Like')
+            ->assertSeeLink($like_text)
             ->assertSeeLink($user->name)
             ->assertHasCookie($cookie)
-            ->assertVisible('.post')
-            ->assertVisible('.avatar')
-            ->assertVisible('.search-form')
-            ->assertVisible('.comment-form')
-            ->clickLink('Profile')
+            ->assertVisible($post_class)
+            ->assertVisible($avatar_class)
+            ->assertVisible($search_form_class)
+            ->assertVisible($comment_form_class)
+            ->clickLink($profile_text)
             ->assertPathIs('/' . $user->name)
             ->visit('/')
-            ->clickLink('Logout')
+            ->clickLink($upload_text)
+            ->assertPathIs('/upload')
+            ->visit('/')
+            ->clickLink($logout_text)
             ->assertPathIs('/');
       });
     }
