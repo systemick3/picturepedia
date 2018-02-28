@@ -82,16 +82,16 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="search-form">
-                <search-autocomplete></search-autocomplete>
-              </div>
-              <div class="search-results">
-
+          @auth
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="search-form">
+                  <search-autocomplete></search-autocomplete>
+                </div>
+                <div class="search-results"></div>
               </div>
             </div>
-          </div>
+          @endauth
           <div class="panel panel-default">
             <div class="panel-body">
               @if (session('status'))
