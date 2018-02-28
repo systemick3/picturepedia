@@ -8,7 +8,7 @@
         <div class="panel panel-default">
           <div class="panel-body">
             @if (!empty($avatar))
-              <div><img src="{{ asset("$avatar->fullpath") }}" alt="{{ $user->full_name }}"/></div>
+              <div class="avatar"><img src="{{ asset("$avatar->fullpath") }}" alt="{{ $user->full_name }}"/></div>
             @endif
             <div>{{ $user->name }}</div>
             <div>{{ $user->full_name }}</div>

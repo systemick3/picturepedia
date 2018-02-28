@@ -66,10 +66,10 @@
                     </form>
                   </li>
                   <li>
-                    <a href="{{ route('user.profile', Auth::user()->name) }}">Profile</a>
+                    <a id="profile-link" href="{{ route('user.profile', Auth::user()->name) }}">Profile</a>
                   </li>
                   <li>
-                    <a href="{{ route('upload.upload') }}">Upload a picture</a>
+                    <a id="upload-link" href="{{ route('upload.upload') }}">Upload a picture</a>
                   </li>
                 </ul>
               </li>
