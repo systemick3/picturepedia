@@ -14,7 +14,7 @@ class MakePostIdNullOnUsers extends Migration
   public function up()
   {
     Schema::table('files', function (Blueprint $table) {
-      $table->integer('post_id')->unsigned()->nullable()->default(NULL)->change();
+      //$table->integer('post_id')->unsigned()->nullable()->default(NULL)->change();
     });
   }
 
@@ -26,7 +26,7 @@ class MakePostIdNullOnUsers extends Migration
   public function down()
   {
     Schema::table('files', function (Blueprint $table) {
-      $table->integer('post_id')->unsigned()->nullable(false)->change();
+      //$table->integer('post_id')->unsigned()->nullable(false)->change();
     });
   }
 }

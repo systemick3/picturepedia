@@ -15,6 +15,7 @@ class CreateFilesTable extends Migration
   {
     Schema::create('files', function (Blueprint $table) {
       $table->increments('id');
+      $table->integer('post_id')->unsigned()->nullable();
       $table->integer('user_id')->unsigned();
       $table->string('filename', 255);
       $table->string('filepath', 255)->unique();
@@ -23,6 +24,7 @@ class CreateFilesTable extends Migration
       $table->tinyInteger('status')->unsigned()->index();
       $table->timestamps();
       $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+      //$table->foreign('post_id')->references('id')->on('posts')->onDelete('set null');
       $table->index('created_at');
       $table->index('updated_at');
     });

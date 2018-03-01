@@ -25,7 +25,7 @@
                 <input type="hidden" name="y2" value="" id="y2" />
                 <input type="hidden" name="w" value="" id="w" />
                 <input type="hidden" name="h" value="" id="h" />
-                <input type="submit" class="button" name="upload_thumbnail" value="Save Thumbnail" id="save_thumb" />
+                <input type="submit" class="btn btn-primary" name="upload_thumbnail" value="Save Thumbnail" id="save_thumb" />
               </form>
             </div>
           </div>

@@ -33,7 +33,7 @@
                 @endif
               </div>
               <div class="form-group">
-                <input type="submit" value="Upload"/>
+                <input type="submit" class="btn btn-primary" value="Upload"/>
               </div>
             </form>
           </div>

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\Browser\PicturepediaTest;
 use App\User;
+use App\File;
 
 class UserTest extends PicturepediaTest
 {
@@ -155,6 +156,7 @@ class UserTest extends PicturepediaTest
         $btn_class = '.btn-primary';
         $confirmation_text = 'Your profile was succesfully updated';
         $credentials_text = 'These credentials do not match our record';
+        $avatar_text = 'Change this avatar';
 
         $browser->loginAs($this->existing_user)
           ->visitRoute('user.edit', ['id' => $this->existing_user->id])
@@ -172,7 +174,7 @@ class UserTest extends PicturepediaTest
           ->assertSourceHas('<input id="password" type="password" name="password" class="form-control" />')
           ->assertSourceHas('<input id="password-confirm" type="password" name="password_confirmation" class="form-control" />')
           ->assertVisible($avatar_class)
-          ->assertSeeLink('Change this avatar')
+          ->assertSeeLink($avatar_text)
           ->type('name', $new_name)
           ->type('email', $new_email)
           ->type('first_name', $new_first_name)
@@ -212,8 +214,35 @@ class UserTest extends PicturepediaTest
      *
      * @return void
      */
-    public function testUserProfile()
+    public function testUserAvatarForm()
     {
+      $this->browse(function (Browser $browser) {
+        $avatar_text = 'Change this avatar';
+        $upload_text = 'Upload an avatar';
+        $btn_class = '.btn-primary';
+        $user = $this->users['user_2'];
+        $preview_id = '#preview';
 
+        $browser->loginAs($user)
+          ->visitRoute('user.edit', ['id' => $user->id])
+          ->assertSeeLink($avatar_text)
+          ->clickLink($avatar_text)
+          ->assertRouteIs('user.avatar.edit', ['id' => $user->id])
+          ->assertSee($upload_text)
+          ->assertSourceHas('<input type="file" name="image" />')
+          ->attach('image', __DIR__.'/images/ef445ebc7a24a1633aded570c7189a7d.png')
+          ->click($btn_class)
+          ->assertRouteIs('user.avatar.crop', ['id' => $user->id])
+          ->assertVisible($preview_id)
+          ->assertSourceHas('<input type="submit" name="upload_thumbnail" value="Save Thumbnail" id="save_thumb" class="btn btn-primary" />')
+          ->click($btn_class)
+          ->assertRouteIs('user.edit', ['id' => $user->id]);
+
+          $user_with_file_id = User::find($user->id);
+          $this->assertTrue($user_with_file_id->file_id !== null);
+
+          $file = File::find($user_with_file_id->file_id);
+          $this->assertTrue(file_exists(public_path(File::FILE_USER_AVATAR_DIR . $file->filename)));
+      });
     }
 }

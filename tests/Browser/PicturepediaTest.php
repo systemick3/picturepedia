@@ -34,7 +34,7 @@ abstract class PicturepediaTest extends DuskTestCase
     $user_1_id = $user->id;
 
     $this->existing_user = $user;
-    $this->users[] = $user;
+    $this->users['user_1'] = $user;
 
     $post = new Post;
     $post->user_id = $user->id;
@@ -70,7 +70,7 @@ abstract class PicturepediaTest extends DuskTestCase
     $user->email = 'user_2@example.com';
     $user->password = 'user_2';
     $user->save();
-    $this->users[] = $user;
+    $this->users['user_2'] = $user;
     $user_2_id = $user->id;
 
     $post = new Post;
@@ -94,7 +94,7 @@ abstract class PicturepediaTest extends DuskTestCase
     $user->email = 'user_3@example.com';
     $user->password = 'user_3';
     $user->save();
-    $this->users[] = $user;
+    $this->users['user_3'] = $user;
     $user_3_id = $user->id;
 
     $post = new Post;
@@ -124,16 +124,4 @@ abstract class PicturepediaTest extends DuskTestCase
     $follow->save();
 
   }
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    // public function testExample()
-    // {
-    //     $this->browse(function (Browser $browser) {
-    //         $browser->visit('/')
-    //                 ->assertSee('Laravel');
-    //     });
-    // }
 }
