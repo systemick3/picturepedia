@@ -21,7 +21,7 @@
           </div>
           <div class="panel-body">
             <h3>Share your picture</h3>
-            <form name="thumbnail" action="/upload/share" method="post">
+            <form name="share" action="/upload/share" method="post">
               {{ csrf_field() }}
               <input type="hidden" name=file_id value="{{ $file->id }}" />
               <input type="hidden" name=post_id value="{{ $post->id }}" />
@@ -33,8 +33,14 @@
                 name="caption"
                 v-model="captionText">
               </counted-textarea>
-              <p><input type="checkbox" name="facebook" value="Facebook">Facebook</p>
-              <p><input type="checkbox" name="twitter" value="Twitter">Twitter</p>
+              <p>
+                <input id="facebook" type="checkbox" name="facebook" value="Facebook">
+                <label for="facebook">Facebook</label>
+              </p>
+              <p>
+                <input id="twitter" type="checkbox" name="twitter" value="Twitter">
+                <label for="twitter">Twitter</label>
+              </p>
               @if ($add_more)
                 <p>
                   <a href="{{ route('upload.upload') }}">

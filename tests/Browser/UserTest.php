@@ -78,11 +78,6 @@ class UserTest extends PicturepediaTest
           ->click($btn_class)
           ->assertPathIs('/login')
           ->assertSee($credentials_text);
-          // ->type('password', $this->existing_user->password)
-          // ->click($btn_class)
-          // ->assertPathIs('/login')
-          //->clickLink($logout_text)
-          //->assertPathIs('/');
       });
     }
 
@@ -91,7 +86,7 @@ class UserTest extends PicturepediaTest
      *
      * @return void
      */
-    public function testRegistraionForm()
+    public function testRegistrationForm()
     {
       $this->browse(function (Browser $browser) {
         $title = config('app.name', 'Picturepedia');

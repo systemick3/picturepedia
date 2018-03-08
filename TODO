@@ -94,12 +94,14 @@
 
 // Show thumbnails of uploaded files on share page.
 
+// Write tests.
+
 
 ################# BACK END #############################
 
-Write tests.
-
 Sort upload messages.
+
+When uploading multiple images ensure any caption entered on first image is visible on subsequent images.
 
 Discs for files to show which image is being viewed.
 
