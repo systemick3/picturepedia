@@ -96,12 +96,13 @@
 
 // Write tests.
 
+// When uploading multiple images ensure any caption entered on first image and twitter/facebook settings are
+visible on subsequent images.
+
 
 ################# BACK END #############################
 
 Sort upload messages.
-
-When uploading multiple images ensure any caption entered on first image is visible on subsequent images.
 
 Discs for files to show which image is being viewed.
 

@@ -1688,11 +1688,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      taValue: this.value
+      taValue: this.existing
     };
   },
 
@@ -1708,7 +1715,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.maxCharacters - this.taValue.length;
     }
   },
-  props: ["maxCharacters", "rows", "cols", "name", "placeholder", "value"]
+  props: ["maxCharacters", "rows", "cols", "name", "placeholder", "existing"]
 });
 
 /***/ }),

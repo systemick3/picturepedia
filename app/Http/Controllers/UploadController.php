@@ -174,6 +174,9 @@ class UploadController extends Controller
       ->with('file_count', $file_count)
       ->with('thumbnails', $thumbnails)
       ->with('add_more', $add_more)
+      ->with('caption', isset($lastPost['caption']) ? $lastPost['caption']: '')
+      ->with('facebook', isset($lastPost['facebook']) ? $lastPost['facebook']: 0)
+      ->with('twitter', isset($lastPost['twitter']) ? $lastPost['twitter']: 0)
       ->with('file', $file);
   }
 
@@ -192,19 +195,25 @@ class UploadController extends Controller
       'twitter' => $request->input('twitter') === 'Twitter',
       'status' => [],
       'error' => [],
+      'caption' => $request->input('caption'),
     ];
 
     $lastPost = array_merge(session()->get('lastPost'), $params);
 
     session()->put('lastPost', $lastPost);
-    if ($request->input('facebook') === 'Facebook') {
-      return redirect()->route('facebook.index');
-    }
-    else if ($request->input('twitter') === 'Twitter') {
-      return redirect()->route('twitter.index');
+    if ($request->has('add_image')) {
+      return redirect()->route('upload.upload');
     }
     else {
-      return redirect()->route('upload.complete');
+      if ($request->input('facebook') === 'Facebook') {
+        return redirect()->route('facebook.index');
+      }
+      else if ($request->input('twitter') === 'Twitter') {
+        return redirect()->route('twitter.index');
+      }
+      else {
+        return redirect()->route('upload.complete');
+      }
     }
   }
 

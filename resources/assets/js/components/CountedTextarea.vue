@@ -1,6 +1,13 @@
-<template> 
+<template>
   <div>
-    <textarea v-model='taValue' :rows='rows' :cols='cols' :name='name' :placeholder='placeholder '@input='$emit("input", taValue)'></textarea>
+    <textarea
+      v-model='taValue'
+      :rows='rows'
+      :cols='cols'
+      :name='name'
+      :placeholder='placeholder'
+      @input='$emit("input", taValue)'>
+    </textarea>
     <span :class="{overMax: isOverMax}">Remaining: {{ remaining }}</span>
   </div>
 </template>
@@ -8,7 +15,7 @@
   export default {
     data(){
       return {
-        taValue: this.value
+        taValue: this.existing,
       }
     },
     computed:{
@@ -23,6 +30,6 @@
         return this.maxCharacters - this.taValue.length
       }
     },
-    props:["maxCharacters", "rows", "cols", "name", "placeholder", "value"]
+    props:["maxCharacters", "rows", "cols", "name", "placeholder", "existing"]
   }
 </script>

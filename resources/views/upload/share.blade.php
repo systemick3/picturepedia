@@ -30,25 +30,21 @@
                 rows="4"
                 cols="50"
                 placeholder="Add a caption"
-                name="caption"
-                v-model="captionText">
+                :existing="'{{ $caption }}'"
+                name="caption">
               </counted-textarea>
               <p>
-                <input id="facebook" type="checkbox" name="facebook" value="Facebook">
+                <input id="facebook" type="checkbox" name="facebook" value="Facebook" {{ ($facebook == 1) ? 'checked' : '' }}>
                 <label for="facebook">Facebook</label>
               </p>
               <p>
-                <input id="twitter" type="checkbox" name="twitter" value="Twitter">
+                <input id="twitter" type="checkbox" name="twitter" value="Twitter" {{ ($twitter == 1) ? 'checked' : '' }}>
                 <label for="twitter">Twitter</label>
               </p>
               @if ($add_more)
-                <p>
-                  <a href="{{ route('upload.upload') }}">
-                    <input type="button" class="button" name="upload_another" value="Upload another picture" id="upload" />
-                  </a>
-                </p>
+                <p><input type="submit" class="button" name="add_image" value="Upload another picture" id="upload" /></p>
               @endif
-              <p><input type="submit" class="button" name="upload_thumbnail" value="Share" id="share" /></p>
+              <p><input type="submit" class="button" name="share_post" value="Share" id="share" /></p>
             </form>
           </div>
         </div>

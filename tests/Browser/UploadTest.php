@@ -52,6 +52,7 @@ class UploadTest extends PicturepediaTest
         $see_text_4 = 'You have uploaded 4 files';
         $share_text = 'Share your picture';
         $caption_text = 'Testing caption';
+        $more_caption_text = $caption_text . ' and testing caption again.';
         $btn_class = '.btn-primary';
         $preview_id = '#preview';
         $save_id = '#save_thumb';
@@ -67,6 +68,7 @@ class UploadTest extends PicturepediaTest
         $max_post_id++;
         $crop_script = 'js/crop.js';
         $facebook_field = '<input id="facebook" type="checkbox" name="facebook" value="Facebook" />';
+        $upload_another_button = '<input type="submit" name="add_image" value="Upload another picture" id="upload" class="button" />';
 
         $browser->loginAs($user)
           ->visitRoute('upload.upload', ['id' => $user->id])
@@ -88,8 +90,11 @@ class UploadTest extends PicturepediaTest
           ->assertSourceHas('<textarea rows="4" cols="50" name="caption" placeholder="Add a caption"></textarea>')
           ->assertSourceHas($facebook_field)
           ->assertSourceHas('<input id="twitter" type="checkbox" name="twitter" value="Twitter" />')
-          ->assertSourceHas('<input type="button" name="upload_another" value="Upload another picture" id="upload" class="button" />')
-          ->assertSourceHas('<input type="submit" name="upload_thumbnail" value="Share" id="share" class="button" />')
+          ->assertSourceHas($upload_another_button)
+          ->assertSourceHas('<input type="submit" name="share_post" value="Share" id="share" class="button" />')
+          ->type('caption', $caption_text)
+          ->check('facebook')
+          ->check('twitter')
           ->click($upload_id)
           ->assertRouteIs('upload.upload')
           ->attach('image', __DIR__.'/images/banner_large.jpg')
@@ -98,6 +103,9 @@ class UploadTest extends PicturepediaTest
           ->click($save_id)
           ->assertRouteIs('upload.share', $max_file_id)
           ->assertSee($see_text_2)
+          ->assertInputValue('caption', $caption_text)
+          ->assertChecked('facebook')
+          ->assertChecked('twitter')
           ->click($upload_id)
           ->assertRouteIs('upload.upload')
           ->attach('image', __DIR__.'/images/banner_large.jpg')
@@ -106,6 +114,7 @@ class UploadTest extends PicturepediaTest
           ->click($save_id)
           ->assertRouteIs('upload.share', $max_file_id)
           ->assertSee($see_text_3)
+          ->assertInputValue('caption', $caption_text)
           ->click($upload_id)
           ->assertRouteIs('upload.upload')
           ->attach('image', __DIR__.'/images/banner_large.jpg')
@@ -114,13 +123,16 @@ class UploadTest extends PicturepediaTest
           ->click($save_id)
           ->assertRouteIs('upload.share', $max_file_id)
           ->assertSee($see_text_4)
+          ->assertInputValue('caption', $caption_text)
+          ->type('caption', $more_caption_text)
+          ->assertSourceMissing($upload_another_button)
+          ->uncheck('facebook')
+          ->uncheck('twitter')
           ->assertNotChecked($facebook_id)
           ->assertNotChecked($twitter_id)
-          ->type('caption', $caption_text)
-          ->assertSourceMissing('<input type="button" name="upload_another" value="Upload another picture" id="upload" class="button" />')
           ->click($share_id)
           ->assertRouteIs('front')
-          ->assertSee($caption_text);
+          ->assertSee($more_caption_text);
       });
     }
 }
