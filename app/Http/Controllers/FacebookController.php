@@ -25,7 +25,7 @@ class FacebookController extends Controller
     }
 
     $lastPost = session()->get('lastPost');
-    //$file = File::findOrFail($lastPost['file_id']);
+    $error = false;
     foreach ($lastPost['file_ids'] as $file_id) {
       $file = File::findOrFail($file_id);
       $data = [
@@ -45,15 +45,23 @@ class FacebookController extends Controller
       }
 
       $graphNode = $response->getGraphNode();
-      if (!empty($graphNode)) {
-        session()->push('lastPost.status', 'The picture has been added to your Facebook feed.');
-      }
-      else {
-        session()->push('lastPost.error', 'There was a problem adding the picture to your Facebook feed.');
+
+      if (empty($graphNode)) {
+        $error = true;
       }
     }
 
-    //$lastPost = session()->get('lastPost');
+    $file_count = count($lastPost['file_ids']);
+    if ($error) {
+      $message = 'The ' . str_plural('picture', $file_count);
+      $message .= ' ' . $file_count > 1 ? ' have' : ' has';
+      $message .= ' been added to your Facebook feed.';
+    }
+    else {
+      $message = 'There was a problem adding the ' . str_plural('picture', $file_count) . ' to your Twitter feed.';
+    }
+    session()->push('lastPost.status', $message);
+
     if ($lastPost['twitter']) {
       return redirect()->route('twitter.index');
     }

@@ -229,7 +229,11 @@ class UploadController extends Controller
     $post = Post::findOrFail($lastPost['post_id']);
     $post->caption = $lastPost['caption'] ? $lastPost['caption'] : '';
     $post->save();
-    session()->push('lastPost.status', 'The picture has been added to your Picturepedia feed.');
+    $file_count = count($lastPost['file_ids']);
+    $message = 'The ' . str_plural('picture', $file_count);
+    $message .= ' ' . $file_count > 1 ? ' have' : ' has';
+    $message .= ' been added to your Picturepedia feed.';
+    session()->push('lastPost.status', $message);
     $status = $request->session()->get('lastPost.status');
     $error = $request->session()->get('lastPost.error');
     $request->session()->flash('status', $status);

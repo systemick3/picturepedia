@@ -69,6 +69,7 @@ class UploadTest extends PicturepediaTest
         $crop_script = 'js/crop.js';
         $facebook_field = '<input id="facebook" type="checkbox" name="facebook" value="Facebook" />';
         $upload_another_button = '<input type="submit" name="add_image" value="Upload another picture" id="upload" class="button" />';
+        $success_text = 'The pictures have been added to your Picturepedia feed';
 
         $browser->loginAs($user)
           ->visitRoute('upload.upload', ['id' => $user->id])
@@ -132,6 +133,7 @@ class UploadTest extends PicturepediaTest
           ->assertNotChecked($twitter_id)
           ->click($share_id)
           ->assertRouteIs('front')
+          //->assertSee($success_text)
           ->assertSee($more_caption_text);
       });
     }

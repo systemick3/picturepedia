@@ -65,12 +65,16 @@ class TwitterController extends Controller
     ];
 
     $status = $twitter->post('statuses/update', $parameters);
+    $file_count = count($lastPost['file_ids']);
     if (!empty($status)) {
-      session()->push('lastPost.status', 'The picture has been added to your Twitter feed.');
+      $message = 'The ' . str_plural('picture', $file_count);
+      $message .= ' ' . $file_count > 1 ? ' have' : ' has';
+      $message .= ' been added to your Twitter feed.';
     }
     else {
-      session()->push('lastPost.error', 'There was a problem adding the picture to your Facebook feed.');
+      $message = 'There was a problem adding the ' . str_plural('picture', $file_count) . ' to your Twitter feed.';
     }
+    session()->push('lastPost.status', $message);
 
     return redirect()->route('upload.complete');
   }
